@@ -1,0 +1,141 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:2:1-66:12
+INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:2:1-66:12
+INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:2:1-66:12
+INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:2:1-66:12
+INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:2:1-66:12
+INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:2:1-66:12
+INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:2:1-66:12
+	package
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:3:5-43
+		INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml
+	android:versionName
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:5:5-31
+		INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:2:11-69
+	android:versionCode
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:4:5-28
+		INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml
+uses-permission#android.permission.BLUETOOTH
+ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:7:5-68
+	android:name
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:7:22-65
+uses-permission#android.permission.BLUETOOTH_ADMIN
+ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:8:5-74
+	android:name
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:8:22-71
+uses-permission#android.permission.INTERNET
+ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:9:5-67
+	android:name
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:9:22-64
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:10:5-80
+	android:name
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:10:22-77
+uses-sdk
+ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:12:5-14:41
+INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:12:5-14:41
+INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:12:5-14:41
+INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:12:5-14:41
+INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:12:5-14:41
+	android:targetSdkVersion
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:14:9-38
+		INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:13:9-35
+		INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml
+uses-feature#android.hardware.bluetooth_le
+ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:16:5-18:35
+	android:required
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:18:9-32
+	android:name
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:17:9-53
+application
+ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:20:5-63:19
+	android:screenOrientation
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:24:9-45
+	android:label
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:23:9-41
+	android:icon
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:22:9-39
+	android:allowBackup
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:21:9-36
+	android:theme
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:25:9-56
+service#com.example.ti.ble.common.BluetoothLeService
+ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:26:9-28:38
+	android:enabled
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:28:13-35
+	android:name
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:27:13-72
+activity#com.example.ti.ble.sensortag.MainActivity
+ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:30:9-40:20
+	android:screenOrientation
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:33:13-49
+	android:label
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:32:13-45
+	android:name
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:31:13-69
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.DEFAULT+category:name:android.intent.category.LAUNCHER
+ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:34:13-39:29
+action#android.intent.action.MAIN
+ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:35:17-69
+	android:name
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:35:25-66
+category#android.intent.category.DEFAULT
+ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:37:17-76
+	android:name
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:37:27-73
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:38:17-77
+	android:name
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:38:27-74
+activity#com.example.ti.ble.sensortag.DeviceActivity
+ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:41:9-44:52
+	android:screenOrientation
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:44:13-49
+	android:parentActivityName
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:43:13-54
+	android:name
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:42:13-71
+activity#com.example.ti.ble.sensortag.ServiceActivity
+ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:45:9-48:52
+	android:screenOrientation
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:48:13-49
+	android:parentActivityName
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:47:13-56
+	android:name
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:46:13-72
+activity#com.example.ti.ble.sensortag.FwUpdateActivity
+ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:49:9-52:52
+	android:screenOrientation
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:52:13-49
+	android:parentActivityName
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:51:13-56
+	android:name
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:50:13-73
+activity#com.example.ti.ble.sensortag.FileActivity
+ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:53:9-56:52
+	android:screenOrientation
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:56:13-49
+	android:parentActivityName
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:55:13-58
+	android:name
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:54:13-69
+activity#com.example.ti.ble.sensortag.PreferencesActivity
+ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:57:9-61:42
+	android:screenOrientation
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:60:13-49
+	android:parentActivityName
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:59:13-56
+	android:label
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:61:13-40
+	android:name
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:58:13-76

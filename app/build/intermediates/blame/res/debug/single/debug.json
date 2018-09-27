@@ -1,0 +1,262 @@
+[
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\xml_popup.xml.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\xml\\popup.xml"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_reedrelay.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-xhdpi\\reedrelay.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\menu_device_activity_actions.xml.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\menu\\device_activity_actions.xml"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_sensortag_magnetometer.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-xhdpi\\sensortag_magnetometer.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_action_cancel.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_cancel.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_tible.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-hdpi\\tible.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_action_settings.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-hdpi\\ic_action_settings.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_scan.xml.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\layout\\fragment_scan.xml"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_irtemperature.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-xhdpi\\irtemperature.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_help.xml.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\layout\\fragment_help.xml"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\layout_dialog_about.xml.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\layout\\dialog_about.xml"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ti_stk_2c_pos_rgb_png.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-mdpi\\ti_stk_2c_pos_rgb_png.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\xml_preferences2.xml.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\xml\\preferences2.xml"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_action_refresh.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_refresh.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_file.xml.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\layout\\activity_file.xml"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_unknown.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-xhdpi\\unknown.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_buttonsonon.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-mdpi\\buttonsonon.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_buttonsoffon.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-mdpi\\buttonsoffon.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_buttonsoffoff.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-mdpi\\buttonsoffoff.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_list_item_normal.xml.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-hdpi\\list_item_normal.xml"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_action_cancel.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-hdpi\\ic_action_cancel.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_fwupdate.xml.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\layout\\activity_fwupdate.xml"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\layout_services_browser.xml.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\layout\\services_browser.xml"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_temperature.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-xhdpi\\temperature.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\layout_frame_progress.xml.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\layout\\frame_progress.xml"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_action_bluetooth.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_bluetooth.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_pager.xml.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\layout\\fragment_pager.xml"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\layout_element_characteristic.xml.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\layout\\element_characteristic.xml"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_action_bluetooth.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-hdpi\\ic_action_bluetooth.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_action_refresh.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-mdpi\\ic_action_refresh.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\layout_element_file.xml.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\layout\\element_file.xml"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_accelerometer.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-xhdpi\\accelerometer.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_bluetooth.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-hdpi\\bluetooth.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_tible.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-mdpi\\tible.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_action_cancel.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-xxhdpi\\ic_action_cancel.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_action_refresh.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-xxhdpi\\ic_action_refresh.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_sensortag_simplekeys.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-xhdpi\\sensortag_simplekeys.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_action_bluetooth.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-mdpi\\ic_action_bluetooth.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_lightsensor.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-xhdpi\\lightsensor.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_sensortag.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-xhdpi\\sensortag.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_reed_closed.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-mdpi\\reed_closed.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_st2.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-xhdpi\\st2.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_tible.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-xhdpi\\tible.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\layout_dialog_license.xml.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\layout\\dialog_license.xml"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_action_cancel.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-mdpi\\ic_action_cancel.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\xml_gatt_uuid.xml.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\xml\\gatt_uuid.xml"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_action_settings.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-mdpi\\ic_action_settings.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_gyroscope.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-xhdpi\\gyroscope.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_action_about.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_about.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\layout_element_device.xml.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\layout\\element_device.xml"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\layout_services_browser2.xml.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\layout\\services_browser2.xml"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\menu_main_activity_actions.xml.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\menu\\main_activity_actions.xml"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_action_bluetooth.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-xxhdpi\\ic_action_bluetooth.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\xml_list_gradient.xml.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\xml\\list_gradient.xml"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_action_settings.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_settings.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_reed_open.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-mdpi\\reed_open.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_humidity.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-xhdpi\\humidity.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\xml_preferences.xml.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\xml\\preferences.xml"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_barometer.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-xhdpi\\barometer.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_action_about.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-mdpi\\ic_action_about.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_action_refresh.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-hdpi\\ic_action_refresh.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_action_about.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-xxhdpi\\ic_action_about.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_buttonsonoff.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-mdpi\\buttonsonoff.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_action_settings.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-xxhdpi\\ic_action_settings.png"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_action_about.png.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-hdpi\\ic_action_about.png"
+    }
+]
