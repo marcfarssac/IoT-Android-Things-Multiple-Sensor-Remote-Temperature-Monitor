@@ -14,7 +14,7 @@
   this software subject to the terms herein.  With respect to the foregoing patent
   license, such license is granted  solely to the extent that any such patent is necessary
   to Utilize the software alone.  The patent license shall not apply to any combinations which
-  include this software, other than combinations with devices manufactured by or for TI (“TI Devices”). 
+  include this software, other than combinations with devices manufactured by or for TI ( TI Devices  ).
   No hardware patent is licensed hereunder.
 
   Redistributions must preserve existing copyright notices and reproduce this license (including the
@@ -42,9 +42,9 @@
 
   DISCLAIMER.
 
-  THIS SOFTWARE IS PROVIDED BY TI AND TI’S LICENSORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING,
+  THIS SOFTWARE IS PROVIDED BY TI AND TI   S LICENSORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING,
   BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
-  IN NO EVENT SHALL TI AND TI’S LICENSORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  IN NO EVENT SHALL TI AND TI   S LICENSORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
   CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
   OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
   OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
@@ -53,11 +53,6 @@
 
  **************************************************************************************************/
 package com.example.ti.ble.sensortag;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.UUID;
 
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
@@ -73,7 +68,6 @@ import android.content.res.XmlResourceParser;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-// import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -84,8 +78,15 @@ import android.widget.Toast;
 import com.example.ti.ble.common.BluetoothLeService;
 import com.example.ti.ble.common.GattInfo;
 import com.example.ti.ble.common.HelpView;
-import com.example.ti.ble.sensortag.R;
 import com.example.ti.util.Point3D;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.UUID;
+
+// import android.util.Log;
 
 public class DeviceActivity extends ViewPagerActivity {
 	// Log
@@ -95,6 +96,8 @@ public class DeviceActivity extends ViewPagerActivity {
 	public static final String EXTRA_DEVICE = "EXTRA_DEVICE";
 	private static final int PREF_ACT_REQ = 0;
 	private static final int FWUPDATE_ACT_REQ = 1;
+
+	private final String SENSORTAG_ADDRESS ="ADDRESS";
 
 	private DeviceView mDeviceView = null;
 
@@ -115,6 +118,20 @@ public class DeviceActivity extends ViewPagerActivity {
 	private boolean mHeightCalibrateRequest = true;
 	private boolean mIsSensorTag2;
 	private String mFwRev;
+    private DecimalFormat decimal = new DecimalFormat("+0.00;-0.00");
+    private static final double PA_PER_METER = 12.0;
+    private String UUID_MAG_DATA, UUID_BAR_DATA, UUID_ACC_DATA,UUID_OPT_DATA,UUID_GYR_DATA,
+            UUID_IRT_DATA_AMB, UUID_IRT_DATA_OBJ, UUID_HUM_DATA;
+    private String UUID_MAG_DATA_REF = "UUID_MAG_DATA_REF";
+    private String UUID_BAR_DATA_REF = "UUID_BAR_DATA_REF";
+    private String UUID_ACC_DATA_REF = "UUID_ACC_DATA_REF";
+    private String UUID_OPT_DATA_REF = "UUID_OPT_DATA_REF";
+    private String UUID_GYR_DATA_REF = "UUID_GYR_DATA_REF";
+    private String UUID_IRT_DATA_AMB_REF = "UUID_IRT_DATA_AMB_REF";
+    private String UUID_IRT_DATA_OBJ_REF = "UUID_IRT_DATA_OBJ_REF";
+    private String UUID_HUM_DATA_REF = "UUID_HUM_DATA_REF";
+
+
 
 	public DeviceActivity() {
 		mResourceFragmentPager = R.layout.fragment_pager;
@@ -205,6 +222,25 @@ public class DeviceActivity extends ViewPagerActivity {
 			registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
 			mIsReceiving = true;
 		}
+	}
+
+	@Override
+	public void onBackPressed() {
+		Bundle bundle = new Bundle();
+        bundle.putString(SENSORTAG_ADDRESS, mBluetoothDevice.getAddress());
+        bundle.putString(UUID_MAG_DATA_REF, UUID_MAG_DATA);
+        bundle.putString(UUID_BAR_DATA_REF, UUID_BAR_DATA);
+        bundle.putString(UUID_ACC_DATA_REF, UUID_ACC_DATA);
+        bundle.putString(UUID_OPT_DATA_REF, UUID_OPT_DATA);
+        bundle.putString(UUID_GYR_DATA_REF, UUID_GYR_DATA);
+        bundle.putString(UUID_IRT_DATA_AMB_REF, UUID_IRT_DATA_AMB);
+        bundle.putString(UUID_IRT_DATA_OBJ_REF, UUID_IRT_DATA_OBJ);
+        bundle.putString(UUID_HUM_DATA_REF, UUID_HUM_DATA);
+
+		Intent mIntent = new Intent();
+		mIntent.putExtras(bundle);
+		setResult(RESULT_OK, mIntent);
+		super.onBackPressed();
 	}
 
 	@Override
@@ -562,10 +598,13 @@ public class DeviceActivity extends ViewPagerActivity {
 	}
 
 	private void onCharacteristicChanged(String uuidStr, byte[] value) {
+        Point3D v;
+        String msg;
+
 		if (mDeviceView != null) {
 			if (mMagCalibrateRequest) {
 				if (uuidStr.equals(SensorTagGatt.UUID_MAG_DATA.toString())) {
-					Point3D v = Sensor.MAGNETOMETER.convert(value);
+					v = Sensor.MAGNETOMETER.convert(value);
 
 					MagnetometerCalibrationCoefficients.INSTANCE.val = v;
 					mMagCalibrateRequest = false;
@@ -576,7 +615,7 @@ public class DeviceActivity extends ViewPagerActivity {
 
 			if (mHeightCalibrateRequest) {
 				if (uuidStr.equals(SensorTagGatt.UUID_BAR_DATA.toString())) {
-					Point3D v = Sensor.BAROMETER.convert(value);
+					v = Sensor.BAROMETER.convert(value);
 
 					BarometerCalibrationCoefficients.INSTANCE.heightCalibration = v.x;
 					mHeightCalibrateRequest = false;
@@ -584,6 +623,65 @@ public class DeviceActivity extends ViewPagerActivity {
 					    Toast.LENGTH_SHORT).show();
 				}
 			}
+
+            if (uuidStr.equals(SensorTagGatt.UUID_ACC_DATA.toString())) {
+                v = Sensor.ACCELEROMETER.convert(value);
+                msg = decimal.format(v.x) + "\n" + decimal.format(v.y) + "\n"
+                        + decimal.format(v.z) + "\n";
+                UUID_ACC_DATA = msg;
+//                mAccValue.setText(msg);
+            }
+
+            if (uuidStr.equals(SensorTagGatt.UUID_MAG_DATA.toString())) {
+                v = Sensor.MAGNETOMETER.convert(value);
+                msg = decimal.format(v.x) + "\n" + decimal.format(v.y) + "\n"
+                        + decimal.format(v.z) + "\n";
+                UUID_MAG_DATA=msg;
+//                mMagValue.setText(msg);
+            }
+
+            if (uuidStr.equals(SensorTagGatt.UUID_OPT_DATA.toString())) {
+                v = Sensor.LUXOMETER.convert(value);
+                msg = decimal.format(v.x) + "\n";
+                UUID_OPT_DATA = msg;
+//                mLuxValue.setText(msg);
+            }
+
+            if (uuidStr.equals(SensorTagGatt.UUID_GYR_DATA.toString())) {
+                v = Sensor.GYROSCOPE.convert(value);
+                msg = decimal.format(v.x) + "\n" + decimal.format(v.y) + "\n"
+                        + decimal.format(v.z) + "\n";
+                UUID_GYR_DATA = msg;
+//                mGyrValue.setText(msg);
+            }
+
+            if (uuidStr.equals(SensorTagGatt.UUID_IRT_DATA.toString())) {
+                v = Sensor.IR_TEMPERATURE.convert(value);
+                msg = decimal.format(v.x) + "\n";
+                UUID_IRT_DATA_AMB = msg;
+//                mAmbValue.setText(msg);
+                msg = decimal.format(v.y) + "\n";
+                UUID_IRT_DATA_OBJ = msg;
+//                mObjValue.setText(msg);
+            }
+
+            if (uuidStr.equals(SensorTagGatt.UUID_HUM_DATA.toString())) {
+                v = Sensor.HUMIDITY.convert(value);
+                msg = decimal.format(v.x) + "\n";
+                UUID_HUM_DATA = msg;
+//                mHumValue.setText(msg);
+            }
+
+            if (uuidStr.equals(SensorTagGatt.UUID_BAR_DATA.toString())) {
+                v = Sensor.BAROMETER.convert(value);
+
+                double h = (v.x - BarometerCalibrationCoefficients.INSTANCE.heightCalibration)
+                        / PA_PER_METER;
+                h = (double) Math.round(-h * 10.0) / 10.0;
+                msg = decimal.format(v.x / 100.0f) + "\n" + h;
+                UUID_BAR_DATA = msg;
+//                mBarValue.setText(msg);
+            }
 
 			mDeviceView.onCharacteristicChanged(uuidStr, value);
 		}
