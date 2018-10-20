@@ -54,9 +54,11 @@
  **************************************************************************************************/
 package com.example.ti.util;
 
+import java.io.IOException;
+
 public abstract class CustomTimerCallback {
 
-  protected abstract void onTimeout();
+  protected abstract void onTimeout() throws IOException;
 
   protected abstract void onTick(int i);
 }

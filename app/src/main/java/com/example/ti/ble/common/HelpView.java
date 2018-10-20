@@ -80,7 +80,7 @@ public class HelpView extends Fragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View rootView = inflater.inflate(mIdFragment, container, false);
-    WebView wv = (WebView) rootView.findViewById(mIdWebPage);
+    WebView wv = rootView.findViewById(mIdWebPage);
 
     wv.loadUrl("file:///android_asset/" + mFile);
     return rootView;

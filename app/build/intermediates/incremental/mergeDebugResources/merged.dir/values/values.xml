@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="device_filter"><item>SensorTag</item><item>SensorTag2</item></string-array>
+    <array name="sensors">
+        <item>78:A5:04:8C:1C:42</item>
+        <item>78:A5:04:8C:17:48</item>
+        <item>BC:6A:29:AE:D3:FC</item>
+        <item>B4:99:4C:64:24:A2</item>
+    </array>
     <string name="about">About</string>
     <string name="acc">Accelerometer</string>
     <string name="agree">I agree</string>
@@ -63,14 +69,10 @@
     <string name="unitT3">uT\nuT\nuT\n</string>
     <string name="xyz3">x:\ny:\nz:\n</string>
     <style name="AppBaseTheme" parent="android:Theme.Light">
-        <!--
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        -->
+        
     </style>
     <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        
     </style>
     <style name="ServiceHeaderItem">
         <item name="android:layout_span">4</item>

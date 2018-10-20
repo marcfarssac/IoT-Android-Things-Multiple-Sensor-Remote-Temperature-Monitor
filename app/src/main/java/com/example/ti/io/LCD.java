@@ -7,7 +7,6 @@ import com.google.android.things.pio.Gpio;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -69,7 +68,7 @@ public class LCD implements Runnable, AutoCloseable {
                Gpio d5,
                Gpio d6,
                Gpio d7,
-               Gpio bl) throws IOException, InterruptedException {
+               Gpio bl) throws IOException {
         this.resetPin = rs;
         this.enablePin = e;
         this.backLight = bl;
@@ -100,12 +99,12 @@ public class LCD implements Runnable, AutoCloseable {
     }
 
     public void init() throws IOException {
+        setBackLight(false);
         clearDisplay();
         goHome();
         for (int i = 0; i < 80; i++) {
             write(" ");
         }
-
     }
 
     public boolean isEnabled(){
@@ -196,18 +195,6 @@ public class LCD implements Runnable, AutoCloseable {
      * @throws IOException
      */
     private void write4(byte value) throws IOException {
-        for (int i = 0; i < dataBus.size(); i++) {
-            Gpio pin = dataBus.get(i);
-            boolean bit = ((value >> i & 0x01) != 0);
-            pin.setValue(bit);
-            delay(1);
-        }
-        pulseEnable();
-        delay(1);
-    }
-
-    private void write4(int address, byte value) throws IOException {
-        sendCommand((byte)address);
         for (int i = 0; i < dataBus.size(); i++) {
             Gpio pin = dataBus.get(i);
             boolean bit = ((value >> i & 0x01) != 0);

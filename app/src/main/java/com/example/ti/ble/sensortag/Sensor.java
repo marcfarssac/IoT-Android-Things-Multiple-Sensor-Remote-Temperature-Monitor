@@ -351,7 +351,7 @@ public enum Sensor {
 	 * Constructor called by the Gyroscope and Accelerometer because it more than a boolean enable
 	 * code.
 	 */
-  private Sensor(UUID service, UUID data, UUID config, byte enableCode) {
+    Sensor(UUID service, UUID data, UUID config, byte enableCode) {
     this.service = service;
     this.data = data;
     this.config = config;
@@ -361,7 +361,7 @@ public enum Sensor {
   /**
    * Constructor called by all the sensors except Gyroscope
    * */
-  private Sensor(UUID service, UUID data, UUID config) {
+  Sensor(UUID service, UUID data, UUID config) {
     this.service = service;
     this.data = data;
     this.config = config;

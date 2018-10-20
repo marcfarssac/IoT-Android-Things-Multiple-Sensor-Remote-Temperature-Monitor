@@ -203,13 +203,9 @@ public class BluetoothLeService extends Service {
 			return false;
 		}
 
-		if (mBusy) {
-			// Log.w(TAG, "LeService busy");
-			return false;
-		}
-		return true;
+        return !mBusy;
 
-	}
+    }
 
 	/**
 	 * Manage the BLE service
@@ -256,12 +252,8 @@ public class BluetoothLeService extends Service {
 		}
 
 		mBtAdapter = mBluetoothManager.getAdapter();
-		if (mBtAdapter == null) {
-			// Log.e(TAG, "Unable to obtain a BluetoothAdapter.");
-			return false;
-		}
-		return true;
-	}
+        return mBtAdapter != null;
+    }
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
@@ -444,12 +436,8 @@ public class BluetoothLeService extends Service {
 			if (mBluetoothDeviceAddress != null
 			    && address.equals(mBluetoothDeviceAddress) && mBluetoothGatt != null) {
 				// Log.d(TAG, "Re-use GATT connection");
-				if (mBluetoothGatt.connect()) {
-					return true;
-				} else {
-					// Log.w(TAG, "GATT re-connect failed.");
-					return false;
-				}
+                // Log.w(TAG, "GATT re-connect failed.");
+                return mBluetoothGatt.connect();
 			}
 
 			if (device == null) {

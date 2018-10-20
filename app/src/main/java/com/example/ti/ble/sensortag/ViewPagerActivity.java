@@ -103,11 +103,11 @@ public class ViewPagerActivity extends FragmentActivity {
     // Set up the action bar
     final ActionBar actionBar = getActionBar();
     actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-    ImageView view = (ImageView) findViewById(android.R.id.home);
+    ImageView view = findViewById(android.R.id.home);
     view.setPadding(10, 0, 20, 10);
 
     // Set up the ViewPager with the sections adapter.
-    mViewPager = (ViewPager) findViewById(mResourceIdPager);
+    mViewPager = findViewById(mResourceIdPager);
     mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
       @Override
       public void onPageSelected(int n) {

@@ -91,7 +91,7 @@ public class AboutDialog extends Dialog {
     setContentView(R.layout.dialog_about);
 
     // From About.html web page
-    WebView webView = (WebView) findViewById(R.id.web_content);
+    WebView webView = findViewById(R.id.web_content);
     webView.setWebViewClient(new WebViewClient(){
       
     	@Override
@@ -116,11 +116,11 @@ public class AboutDialog extends Dialog {
     // Header
     Resources res = mContext.getResources();
     String appName = res.getString(R.string.app_name);
-    TextView title = (TextView) findViewById(R.id.title);
+    TextView title = findViewById(R.id.title);
     title.setText("About " + appName);
 
     // Application info
-    TextView head = (TextView) findViewById(R.id.header);
+    TextView head = findViewById(R.id.header);
     String appVersion = "Revision: ";
     try {
       appVersion += mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0).versionName;
@@ -130,11 +130,11 @@ public class AboutDialog extends Dialog {
     head.setText(appVersion);
 
     // Dismiss button
-    Button okButton = (Button) findViewById(R.id.buttonOK);
+    Button okButton = findViewById(R.id.buttonOK);
     okButton.setOnClickListener(mOkListener);
 
     // Device information
-    TextView foot = (TextView) findViewById(R.id.footer);
+    TextView foot = findViewById(R.id.footer);
     String txt = Build.MANUFACTURER.toUpperCase() + " " + Build.MODEL + " Android " + Build.VERSION.RELEASE + " " + Build.DISPLAY;
 
     foot.setText(txt);

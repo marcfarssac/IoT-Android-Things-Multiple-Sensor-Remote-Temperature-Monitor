@@ -73,6 +73,7 @@ import com.example.ti.ble.common.BleDeviceInfo;
 import com.example.ti.util.CustomTimer;
 import com.example.ti.util.CustomTimerCallback;
 
+import java.io.IOException;
 import java.util.List;
 
 // import android.util.Log;
@@ -107,16 +108,20 @@ public class ScanView extends Fragment {
     mContext = mActivity.getApplicationContext();
 
     // Initialize widgets
-    mStatus = (TextView) view.findViewById(R.id.status);
-    mBtnScan = (Button) view.findViewById(R.id.btn_scan);
-    mDeviceListView = (ListView) view.findViewById(R.id.device_list);
+    mStatus = view.findViewById(R.id.status);
+    mBtnScan = view.findViewById(R.id.btn_scan);
+    mDeviceListView = view.findViewById(R.id.device_list);
     mDeviceListView.setClickable(true);
     mDeviceListView.setOnItemClickListener(mDeviceClickListener);
-    mEmptyMsg = (TextView)view.findViewById(R.id.no_device);    
+    mEmptyMsg = view.findViewById(R.id.no_device);
     mBusy = false;
     
     // Alert parent activity
-    mActivity.onScanViewReady(view);
+    try {
+      mActivity.onScanViewReady(view);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
 
     return view;
   }
@@ -170,7 +175,7 @@ public class ScanView extends Fragment {
 		}
 	}
 
-  void updateGui(boolean scanning) {
+  void updateGui(boolean scanning) throws IOException {
     if (mBtnScan == null)
       return; // UI not ready
     
@@ -203,13 +208,17 @@ public class ScanView extends Fragment {
       mConnectTimer = new CustomTimer(null, CONNECT_TIMEOUT, mPgConnectCallback);
       mBtnScan.setEnabled(false);
       mDeviceAdapter.notifyDataSetChanged(); // Force disabling of all Connect buttons
-      mActivity.onDeviceClick(pos);
+      try {
+        mActivity.onDeviceClick(pos);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
   };
 
   // Listener for progress timer expiration
   private CustomTimerCallback mPgScanCallback = new CustomTimerCallback() {
-    public void onTimeout() {
+    public void onTimeout() throws IOException {
       mActivity.onScanTimeout();
     }
 
@@ -301,12 +310,12 @@ public class ScanView extends Fragment {
       String descr = name + "\n" + device.getAddress() + "\nRssi: " + rssi + " dBm";
       ((TextView) vg.findViewById(R.id.descr)).setText(descr);
       
-      ImageView iv = (ImageView)vg.findViewById(R.id.devImage);
+      ImageView iv = vg.findViewById(R.id.devImage);
       if (name.equals("SensorTag2"))
       	iv.setImageResource(R.drawable.st2);
       
       // Disable connect button when connecting or connected
-      Button bv = (Button)vg.findViewById(R.id.btnConnect);
+      Button bv = vg.findViewById(R.id.btnConnect);
       bv.setEnabled(mConnectTimer == null);
 
       return vg;

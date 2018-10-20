@@ -10,6 +10,7 @@ package com.example.ti.ble.sensortag;
 public final class R {
   public static final class array {
     public static final int device_filter=0x7f010000;
+    public static final int sensors=0x7f010001;
   }
   public static final class drawable {
     public static final int accelerometer=0x7f020000;

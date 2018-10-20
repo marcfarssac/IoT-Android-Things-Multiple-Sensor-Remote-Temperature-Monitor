@@ -180,23 +180,23 @@ public class FwUpdateActivity extends Activity {
     setContentView(R.layout.activity_fwupdate);
 
     // Icon padding
-    ImageView view = (ImageView) findViewById(android.R.id.home);
+    ImageView view = findViewById(android.R.id.home);
     view.setPadding(10, 0, 20, 10);
 
     // Context title
     setTitle(R.string.title_oad);
 
     // Initialize widgets
-    mProgressInfo = (TextView) findViewById(R.id.tw_info);
-    mTargImage = (TextView) findViewById(R.id.tw_target);
-    mFileImage = (TextView) findViewById(R.id.tw_file);
-    mLog = (TextView) findViewById(R.id.tw_log);
-    mProgressBar = (ProgressBar) findViewById(R.id.pb_progress);
-    mBtnStart = (Button) findViewById(R.id.btn_start);
+    mProgressInfo = findViewById(R.id.tw_info);
+    mTargImage = findViewById(R.id.tw_target);
+    mFileImage = findViewById(R.id.tw_file);
+    mLog = findViewById(R.id.tw_log);
+    mProgressBar = findViewById(R.id.pb_progress);
+    mBtnStart = findViewById(R.id.btn_start);
     mBtnStart.setEnabled(false);
-    mBtnLoadA = (Button) findViewById(R.id.btn_load_a);
-    mBtnLoadB = (Button) findViewById(R.id.btn_load_b);
-    mBtnLoadC = (Button) findViewById(R.id.btn_load_c);
+    mBtnLoadA = findViewById(R.id.btn_load_a);
+    mBtnLoadB = findViewById(R.id.btn_load_b);
+    mBtnLoadC = findViewById(R.id.btn_load_c);
 
     // Sanity check
     mBtnLoadA.setEnabled(mServiceOk);

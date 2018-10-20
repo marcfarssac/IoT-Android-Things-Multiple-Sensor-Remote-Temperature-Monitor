@@ -120,29 +120,29 @@ public class DeviceView extends Fragment {
 
 		if (mIsSensorTag2) {
 			view = inflater.inflate(R.layout.services_browser2, container, false);
-			table = (TableLayout) view.findViewById(R.id.services_browser_layout2);
-			mLuxValue = (TextView) view.findViewById(R.id.luxometerTxt);
+			table = view.findViewById(R.id.services_browser_layout2);
+			mLuxValue = view.findViewById(R.id.luxometerTxt);
 			mMagPanel = null;
-			mRelay = (ImageView) view.findViewById(R.id.relay);
+			mRelay = view.findViewById(R.id.relay);
 		} else {
 			view = inflater.inflate(R.layout.services_browser, container, false);
-			table = (TableLayout) view.findViewById(R.id.services_browser_layout);
-			mMagValue = (TextView) view.findViewById(R.id.magnetometerTxt);
-			mMagPanel = (TableRow) view.findViewById(R.id.magPanel);
+			table = view.findViewById(R.id.services_browser_layout);
+			mMagValue = view.findViewById(R.id.magnetometerTxt);
+			mMagPanel = view.findViewById(R.id.magPanel);
 			mRelay = null;
 		}
 
 		// UI widgets
-		mAccValue = (TextView) view.findViewById(R.id.accelerometerTxt);
-		mGyrValue = (TextView) view.findViewById(R.id.gyroscopeTxt);
-		mObjValue = (TextView) view.findViewById(R.id.objTemperatureText);
-		mAmbValue = (TextView) view.findViewById(R.id.ambientTemperatureTxt);
-		mHumValue = (TextView) view.findViewById(R.id.humidityTxt);
-		mBarValue = (TextView) view.findViewById(R.id.barometerTxt);
-		mButton = (ImageView) view.findViewById(R.id.buttons);
+		mAccValue = view.findViewById(R.id.accelerometerTxt);
+		mGyrValue = view.findViewById(R.id.gyroscopeTxt);
+		mObjValue = view.findViewById(R.id.objTemperatureText);
+		mAmbValue = view.findViewById(R.id.ambientTemperatureTxt);
+		mHumValue = view.findViewById(R.id.humidityTxt);
+		mBarValue = view.findViewById(R.id.barometerTxt);
+		mButton = view.findViewById(R.id.buttons);
 
 		// Support for calibration
-		mBarPanel = (TableRow) view.findViewById(R.id.barPanel);
+		mBarPanel = view.findViewById(R.id.barPanel);
 		OnClickListener cl = new OnClickListener() {
 			public void onClick(View v) {
 				switch (v.getId()) {

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:example="http://schemas.android.com/apk/res/com.ti.sensortag" >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     
     <PreferenceCategory android:title="Sensors online" >
         
@@ -11,19 +10,19 @@
         <CheckBoxPreference
             android:key="pref_simple_keys_on"
             android:summary="Turn the Simple keys service on or off."
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:persistent="true"
             android:title="Buttons" />
         <CheckBoxPreference
             android:key="pref_accelerometer_on"
             android:summary="Turn the Accelerometer service on or off."
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:persistent="true"
             android:title="Accelerometer" />
         <CheckBoxPreference
             android:key="pref_luxometer_on"
             android:summary="Turn the Luxometer service on or off."
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:persistent="true"
             android:title="Luxometer" />
         <CheckBoxPreference
@@ -35,7 +34,7 @@
         <CheckBoxPreference
             android:key="pref_ir_temperature_on"
             android:summary="Turn the IR and Ambient Temperature service on or off."
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:persistent="true"
             android:title="IR and Ambient Temperature" />
         <CheckBoxPreference

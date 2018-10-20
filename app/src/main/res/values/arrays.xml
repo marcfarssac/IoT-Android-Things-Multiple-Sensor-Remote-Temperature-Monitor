@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="sensors">
+        <item>78:A5:04:8C:1C:42</item>
+        <item>78:A5:04:8C:17:48</item>
+        <item>BC:6A:29:AE:D3:FC</item>
+        <item>B4:99:4C:64:24:A2</item>
+    </array>
+</resources>

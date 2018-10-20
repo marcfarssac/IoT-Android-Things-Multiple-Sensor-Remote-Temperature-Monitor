@@ -56,6 +56,7 @@ package com.example.ti.util;
 
 import android.widget.ProgressBar;
 
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -92,8 +93,13 @@ public class CustomTimer {
       if (i >= mTimeout) {
         mTimer.cancel();
         mTimer = null;
-        if (mCb != null)
-          mCb.onTimeout();
+        if (mCb != null) {
+          try {
+            mCb.onTimeout();
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        }
       } else {
         if (mCb != null)
           mCb.onTick(i);

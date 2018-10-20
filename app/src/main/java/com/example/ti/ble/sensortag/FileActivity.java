@@ -107,9 +107,9 @@ public class FileActivity extends Activity {
     mDir = Environment.getExternalStoragePublicDirectory(mDirectoryName);
     Log.i(TAG, mDirectoryName);
 
-    mTwDirName = (TextView) findViewById(R.id.tw_directory);
-    mConfirm = (Button) findViewById(R.id.btn_confirm);
-    mLwFileList = (ListView) findViewById(R.id.lw_file);
+    mTwDirName = findViewById(R.id.tw_directory);
+    mConfirm = findViewById(R.id.btn_confirm);
+    mLwFileList = findViewById(R.id.lw_file);
     mLwFileList.setOnItemClickListener(mFileClickListener);
 
     // Characteristics list
@@ -122,11 +122,7 @@ public class FileActivity extends Activity {
       FilenameFilter textFilter = new FilenameFilter() {
     		public boolean accept(File dir, String name) {
     			String lowercaseName = name.toLowerCase();
-    			if (lowercaseName.endsWith(".bin")) {
-    				return true;
-    			} else {
-    				return false;
-    			}
+                return lowercaseName.endsWith(".bin");
     		}
     	};
 
@@ -232,7 +228,7 @@ public class FileActivity extends Activity {
       String file = mFiles.get(pos);
 
       // Show name, UUID and properties
-      TextView twName = (TextView) vg.findViewById(R.id.name);
+      TextView twName = vg.findViewById(R.id.name);
       twName.setText(file);
 
       // Highlight selected object

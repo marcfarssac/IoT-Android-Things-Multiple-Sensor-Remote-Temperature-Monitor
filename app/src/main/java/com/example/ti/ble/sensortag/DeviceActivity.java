@@ -78,6 +78,7 @@ import android.widget.Toast;
 import com.example.ti.ble.common.BluetoothLeService;
 import com.example.ti.ble.common.GattInfo;
 import com.example.ti.ble.common.HelpView;
+import com.example.ti.model.SensorData;
 import com.example.ti.util.Point3D;
 
 import java.text.DecimalFormat;
@@ -131,7 +132,7 @@ public class DeviceActivity extends ViewPagerActivity {
     private String UUID_IRT_DATA_OBJ_REF = "UUID_IRT_DATA_OBJ_REF";
     private String UUID_HUM_DATA_REF = "UUID_HUM_DATA_REF";
 
-
+	private SensorData mSensorData;
 
 	public DeviceActivity() {
 		mResourceFragmentPager = R.layout.fragment_pager;
@@ -153,6 +154,7 @@ public class DeviceActivity extends ViewPagerActivity {
 		mBtLeService = BluetoothLeService.getInstance();
 		mBluetoothDevice = intent.getParcelableExtra(EXTRA_DEVICE);
 		mServiceList = new ArrayList<BluetoothGattService>();
+		mSensorData = new SensorData();
 
 		// Determine type of SensorTagGatt
 		String deviceName = mBluetoothDevice.getName();
@@ -165,7 +167,7 @@ public class DeviceActivity extends ViewPagerActivity {
 
 		// GUI
 		mDeviceView = new DeviceView();
-		mSectionsPagerAdapter.addSection(mDeviceView, "Sensors");
+		mSectionsPagerAdapter.addSection(mDeviceView, "Sensors\n"+mBluetoothDevice.getAddress());
 		HelpView hw = new HelpView();
 		hw.setParameters("help_device.html", R.layout.fragment_help, R.id.webpage);
 		mSectionsPagerAdapter.addSection(hw, "Help");
@@ -226,21 +228,17 @@ public class DeviceActivity extends ViewPagerActivity {
 
 	@Override
 	public void onBackPressed() {
-		Bundle bundle = new Bundle();
-        bundle.putString(SENSORTAG_ADDRESS, mBluetoothDevice.getAddress());
-        bundle.putString(UUID_MAG_DATA_REF, UUID_MAG_DATA);
-        bundle.putString(UUID_BAR_DATA_REF, UUID_BAR_DATA);
-        bundle.putString(UUID_ACC_DATA_REF, UUID_ACC_DATA);
-        bundle.putString(UUID_OPT_DATA_REF, UUID_OPT_DATA);
-        bundle.putString(UUID_GYR_DATA_REF, UUID_GYR_DATA);
-        bundle.putString(UUID_IRT_DATA_AMB_REF, UUID_IRT_DATA_AMB);
-        bundle.putString(UUID_IRT_DATA_OBJ_REF, UUID_IRT_DATA_OBJ);
-        bundle.putString(UUID_HUM_DATA_REF, UUID_HUM_DATA);
+
+		if (mIsReceiving) {
+			unregisterReceiver(mGattUpdateReceiver);
+			mIsReceiving = false;
+		}
 
 		Intent mIntent = new Intent();
-		mIntent.putExtras(bundle);
+		mIntent.putExtra("SensorData", mSensorData);
 		setResult(RESULT_OK, mIntent);
-		super.onBackPressed();
+		finish();
+//		super.onBackPressed();
 	}
 
 	@Override
@@ -628,7 +626,9 @@ public class DeviceActivity extends ViewPagerActivity {
                 v = Sensor.ACCELEROMETER.convert(value);
                 msg = decimal.format(v.x) + "\n" + decimal.format(v.y) + "\n"
                         + decimal.format(v.z) + "\n";
-                UUID_ACC_DATA = msg;
+				UUID_ACC_DATA = msg;
+//				if (UUID_ACC_DATA != null)
+                	mSensorData.setmAccData(UUID_ACC_DATA);
 //                mAccValue.setText(msg);
             }
 
@@ -636,14 +636,18 @@ public class DeviceActivity extends ViewPagerActivity {
                 v = Sensor.MAGNETOMETER.convert(value);
                 msg = decimal.format(v.x) + "\n" + decimal.format(v.y) + "\n"
                         + decimal.format(v.z) + "\n";
-                UUID_MAG_DATA=msg;
+				UUID_MAG_DATA=msg;
+//				if (UUID_MAG_DATA != null)
+                	mSensorData.setmMagData(UUID_MAG_DATA);
 //                mMagValue.setText(msg);
             }
 
             if (uuidStr.equals(SensorTagGatt.UUID_OPT_DATA.toString())) {
                 v = Sensor.LUXOMETER.convert(value);
                 msg = decimal.format(v.x) + "\n";
-                UUID_OPT_DATA = msg;
+				UUID_OPT_DATA = msg;
+//				if (UUID_OPT_DATA != null)
+					mSensorData.setmOptData(UUID_OPT_DATA);
 //                mLuxValue.setText(msg);
             }
 
@@ -651,7 +655,9 @@ public class DeviceActivity extends ViewPagerActivity {
                 v = Sensor.GYROSCOPE.convert(value);
                 msg = decimal.format(v.x) + "\n" + decimal.format(v.y) + "\n"
                         + decimal.format(v.z) + "\n";
-                UUID_GYR_DATA = msg;
+				UUID_GYR_DATA = msg;
+//				if (UUID_GYR_DATA != null)
+                	mSensorData.setmGyrData(UUID_GYR_DATA);
 //                mGyrValue.setText(msg);
             }
 
@@ -659,16 +665,22 @@ public class DeviceActivity extends ViewPagerActivity {
                 v = Sensor.IR_TEMPERATURE.convert(value);
                 msg = decimal.format(v.x) + "\n";
                 UUID_IRT_DATA_AMB = msg;
-//                mAmbValue.setText(msg);
+//                if (UUID_IRT_DATA_AMB!=null)
+					mSensorData.setmIrtDataRef(UUID_IRT_DATA_AMB);
+                //                mAmbValue.setText(msg);
                 msg = decimal.format(v.y) + "\n";
-                UUID_IRT_DATA_OBJ = msg;
+				UUID_IRT_DATA_OBJ = msg;
+//				if (UUID_IRT_DATA_OBJ != null)
+                	mSensorData.setmIrtDataObj(UUID_IRT_DATA_OBJ);
 //                mObjValue.setText(msg);
             }
 
             if (uuidStr.equals(SensorTagGatt.UUID_HUM_DATA.toString())) {
                 v = Sensor.HUMIDITY.convert(value);
                 msg = decimal.format(v.x) + "\n";
-                UUID_HUM_DATA = msg;
+				UUID_HUM_DATA = msg;
+//				if (UUID_HUM_DATA != null)
+                	mSensorData.setmHumData(UUID_HUM_DATA);
 //                mHumValue.setText(msg);
             }
 
@@ -680,11 +692,14 @@ public class DeviceActivity extends ViewPagerActivity {
                 h = (double) Math.round(-h * 10.0) / 10.0;
                 msg = decimal.format(v.x / 100.0f) + "\n" + h;
                 UUID_BAR_DATA = msg;
+//                if (UUID_BAR_DATA!=null)
+                	mSensorData.setmBarData(UUID_BAR_DATA);
 //                mBarValue.setText(msg);
             }
-
 			mDeviceView.onCharacteristicChanged(uuidStr, value);
 		}
+
+		if (mSensorData.allSensorsRead()) onBackPressed();
 	}
 
 	private void onCharacteristicsRead(String uuidStr, byte[] value, int status) {
