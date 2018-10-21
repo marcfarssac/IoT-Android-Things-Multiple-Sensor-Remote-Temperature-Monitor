@@ -62,6 +62,11 @@
             android:label="Preferences"
             android:parentActivityName="com.example.ti.ble.sensortag.DeviceActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.example.ti.ble.sensortag.ViewPagerActivity"
+            android:label="Preferences"
+            android:parentActivityName="com.example.ti.ble.sensortag.MainActivity"
+            android:screenOrientation="portrait" />
 
         <uses-library
             android:name="com.google.android.things"

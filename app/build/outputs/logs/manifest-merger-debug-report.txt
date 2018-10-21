@@ -1,13 +1,13 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:2:1-65:12
-INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:2:1-65:12
-INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:2:1-65:12
-INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:2:1-65:12
+ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:2:1-70:12
+INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:2:1-70:12
+INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:2:1-70:12
+INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:2:1-70:12
 MERGED from [com.google.android.things.contrib:driver-button:1.0] C:\Users\marcf\.gradle\caches\transforms-1\files-1.1\driver-button-1.0.aar\1ed04a2f5272ef17b52b1906e090383e\AndroidManifest.xml:17:1-30:12
-INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:2:1-65:12
-INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:2:1-65:12
-INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:2:1-65:12
+INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:2:1-70:12
+INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:2:1-70:12
+INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:2:1-70:12
 	package
 		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:3:5-43
 		INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml
@@ -61,7 +61,7 @@ ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xm
 	android:name
 		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:20:9-53
 application
-ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:23:5-62:19
+ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:23:5-67:19
 MERGED from [com.google.android.things.contrib:driver-button:1.0] C:\Users\marcf\.gradle\caches\transforms-1\files-1.1\driver-button-1.0.aar\1ed04a2f5272ef17b52b1906e090383e\AndroidManifest.xml:24:5-28:19
 MERGED from [com.google.android.things.contrib:driver-button:1.0] C:\Users\marcf\.gradle\caches\transforms-1\files-1.1\driver-button-1.0.aar\1ed04a2f5272ef17b52b1906e090383e\AndroidManifest.xml:24:5-28:19
 	android:screenOrientation
@@ -140,6 +140,16 @@ ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xm
 		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:60:13-40
 	android:name
 		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:57:13-76
+activity#com.example.ti.ble.sensortag.ViewPagerActivity
+ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:61:9-65:42
+	android:screenOrientation
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:64:13-49
+	android:parentActivityName
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:63:13-55
+	android:label
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:65:13-40
+	android:name
+		ADDED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml:62:13-74
 uses-sdk
 INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\marcf\git\sensortag-android2\app\src\main\AndroidManifest.xml

@@ -71,13 +71,14 @@ public enum SensorScan {
         }
         public boolean isBusy() {  return isBusy;}
         public SensorScan getNextState(){
-            SensorScan result = READ_SENSOR;
-            if(!isBusy) {
-                if (pollNextSensor() != 0)
-                    result = READ_SENSOR;
-                else
-                    result = START;
-            }
+            SensorScan result = START;
+//            SensorScan result = READ_SENSOR;
+//            if(!isBusy) {
+//                if (pollNextSensor() != 0)
+//                    result = READ_SENSOR;
+//                else
+//                    result = START;
+//            }
             return result;
         }
         public void setNumSensors(int listSize){this.numSensors = listSize;}

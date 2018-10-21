@@ -1,54 +1,54 @@
 /**************************************************************************************************
-  Filename:       MainActivity.java
-  Revised:        $Date: 2014-01-02 18:55:00 +0100 (to, 02 jan 2014) $
-  Revision:       $Revision: 28743 $
+ Filename:       MainActivity.java
+ Revised:        $Date: 2014-01-02 18:55:00 +0100 (to, 02 jan 2014) $
+ Revision:       $Revision: 28743 $
 
-  Copyright (c) 2013 - 2014 Texas Instruments Incorporated
+ Copyright (c) 2013 - 2014 Texas Instruments Incorporated
 
-  All rights reserved not granted herein.
-  Limited License.
+ All rights reserved not granted herein.
+ Limited License.
 
-  Texas Instruments Incorporated grants a world-wide, royalty-free,
-  non-exclusive license under copyrights and patents it now or hereafter
-  owns or controls to make, have made, use, import, offer to sell and sell ("Utilize")
-  this software subject to the terms herein.  With respect to the foregoing patent
-  license, such license is granted  solely to the extent that any such patent is necessary
-  to Utilize the software alone.  The patent license shall not apply to any combinations which
-  include this software, other than combinations with devices manufactured by or for TI ( TI Devices  ).
-  No hardware patent is licensed hereunder.
+ Texas Instruments Incorporated grants a world-wide, royalty-free,
+ non-exclusive license under copyrights and patents it now or hereafter
+ owns or controls to make, have made, use, import, offer to sell and sell ("Utilize")
+ this software subject to the terms herein.  With respect to the foregoing patent
+ license, such license is granted  solely to the extent that any such patent is necessary
+ to Utilize the software alone.  The patent license shall not apply to any combinations which
+ include this software, other than combinations with devices manufactured by or for TI ( TI Devices  ).
+ No hardware patent is licensed hereunder.
 
-  Redistributions must preserve existing copyright notices and reproduce this license (including the
-  above copyright notice and the disclaimer and (if applicable) source code license limitations below)
-  in the documentation and/or other materials provided with the distribution
+ Redistributions must preserve existing copyright notices and reproduce this license (including the
+ above copyright notice and the disclaimer and (if applicable) source code license limitations below)
+ in the documentation and/or other materials provided with the distribution
 
-  Redistribution and use in binary form, without modification, are permitted provided that the following
-  conditions are met:
+ Redistribution and use in binary form, without modification, are permitted provided that the following
+ conditions are met:
 
-    * No reverse engineering, decompilation, or disassembly of this software is permitted with respect to any
-      software provided in binary form.
-    * any redistribution and use are licensed by TI for use only with TI Devices.
-    * Nothing shall obligate TI to provide you with source code for the software licensed and provided to you in object code.
+ * No reverse engineering, decompilation, or disassembly of this software is permitted with respect to any
+ software provided in binary form.
+ * any redistribution and use are licensed by TI for use only with TI Devices.
+ * Nothing shall obligate TI to provide you with source code for the software licensed and provided to you in object code.
 
-  If software source code is provided to you, modification and redistribution of the source code are permitted
-  provided that the following conditions are met:
+ If software source code is provided to you, modification and redistribution of the source code are permitted
+ provided that the following conditions are met:
 
-    * any redistribution and use of the source code, including any resulting derivative works, are licensed by
-      TI for use only with TI Devices.
-    * any redistribution and use of any object code compiled from the source code and any resulting derivative
-      works, are licensed by TI for use only with TI Devices.
+ * any redistribution and use of the source code, including any resulting derivative works, are licensed by
+ TI for use only with TI Devices.
+ * any redistribution and use of any object code compiled from the source code and any resulting derivative
+ works, are licensed by TI for use only with TI Devices.
 
-  Neither the name of Texas Instruments Incorporated nor the names of its suppliers may be used to endorse or
-  promote products derived from this software without specific prior written permission.
+ Neither the name of Texas Instruments Incorporated nor the names of its suppliers may be used to endorse or
+ promote products derived from this software without specific prior written permission.
 
-  DISCLAIMER.
+ DISCLAIMER.
 
-  THIS SOFTWARE IS PROVIDED BY TI AND TI   S LICENSORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING,
-  BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
-  IN NO EVENT SHALL TI AND TI   S LICENSORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
-  OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-  POSSIBILITY OF SUCH DAMAGE.
+ THIS SOFTWARE IS PROVIDED BY TI AND TI   S LICENSORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING,
+ BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ IN NO EVENT SHALL TI AND TI   S LICENSORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+ OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ POSSIBILITY OF SUCH DAMAGE.
 
 
  **************************************************************************************************/
@@ -96,6 +96,8 @@ import com.google.android.things.pio.PeripheralManager;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
@@ -166,6 +168,8 @@ public class MainActivity extends ViewPagerActivity {
     private LCD lcd1, lcd2, lcd3;
     long stateTime;
 
+    int sensorReadingLoop;
+
     public MainActivity() {
         mThis = this;
         mResourceFragmentPager = R.layout.fragment_pager;
@@ -180,6 +184,7 @@ public class MainActivity extends ViewPagerActivity {
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         mHandler = new Handler();
+        sensorReadingLoop = 0;
 
         // Use this check to determine whether BLE is supported on the device. Then
         // you can selectively disable BLE-related features.
@@ -249,7 +254,7 @@ public class MainActivity extends ViewPagerActivity {
             e.printStackTrace();
         }
 
-        if (BUS_SensorLed_01!=null) {
+        if (BUS_SensorLed_01 != null) {
             try {
                 BUS_SensorLed_01.setValue(false);
                 BUS_SensorLed_01.close();
@@ -258,7 +263,7 @@ public class MainActivity extends ViewPagerActivity {
             }
         }
 
-        if (BUS_SensorLed_02!=null) {
+        if (BUS_SensorLed_02 != null) {
             try {
                 BUS_SensorLed_02.setValue(false);
                 BUS_SensorLed_02.close();
@@ -267,7 +272,7 @@ public class MainActivity extends ViewPagerActivity {
             }
         }
 
-        if (lcd1!=null) {
+        if (lcd1 != null) {
             try {
                 lcd1.setBackLight(false);
                 lcd1.close();
@@ -275,7 +280,7 @@ public class MainActivity extends ViewPagerActivity {
                 e.printStackTrace();
             }
         }
-        if (lcd2!=null) {
+        if (lcd2 != null) {
             try {
                 lcd2.setBackLight(false);
                 lcd2.close();
@@ -283,7 +288,7 @@ public class MainActivity extends ViewPagerActivity {
                 e.printStackTrace();
             }
         }
-        if (lcd3!=null) {
+        if (lcd3 != null) {
             try {
                 lcd3.setBackLight(false);
                 lcd3.close();
@@ -388,6 +393,8 @@ public class MainActivity extends ViewPagerActivity {
             mScanView.notifyDataSetChanged();
         }
 
+        state = UPDATE_LCDS;
+
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -432,22 +439,21 @@ public class MainActivity extends ViewPagerActivity {
                             default:
                                 break;
                         }
-                    }
-                    else {
+                    } else {
                         if (elapsedTime(getCurrentTime(), stateTime) > MAX_SCAN_TIME) {
                             Log.d(TAG, "State: Sensors scaned:" + mDeviceInfoList.size());
-                            if (mDeviceInfoList.size()>0) {
+                            if (mDeviceInfoList.size() > 0) {
+                                sortSensors();
                                 state.setBusy(false);
                                 state = UPDATE_LCDS;
-                            }
-                            else {
+                            } else {
                                 state.setBusy(false);
                                 state = START;
                             }
                         }
                         long timeout;
-                        if ((timeout= elapsedTime(getCurrentTime(), stateTime)) > MAX_STATE_TIME) {
-                            Log.d(TAG, "State: Timeout= "+ (timeout/1000)%60);
+                        if ((timeout = elapsedTime(getCurrentTime(), stateTime)) > MAX_STATE_TIME) {
+                            Log.d(TAG, "State: Timeout= " + (timeout / 1000) % 60);
                             state = START; // RESET
                         }
                     }
@@ -460,15 +466,37 @@ public class MainActivity extends ViewPagerActivity {
         }, STATE_TIME);
     }
 
-    private void turnOffSensorLeds() throws  IOException{
+    private void turnOffSensorLeds() throws IOException {
         BUS_SensorLed_01.setValue(false);
         BUS_SensorLed_02.setValue(false);
     }
 
+    private void sortSensors() {
+        int shift = 0;
+        if (sensorReadingLoop % 3 == 0) shift = 0;
+        if (sensorReadingLoop % 3 == 1) shift = 1;
+        if (sensorReadingLoop % 3 == 2) shift = 2;
 
-    private void turnOnSensorLed(int sensor) throws IOException{
+        Collections.sort(mDeviceInfoList, new Comparator<BleDeviceInfo>() {
+            @Override
+            public int compare(BleDeviceInfo o1, BleDeviceInfo o2) {
+                return o1.getBluetoothDevice().getAddress().compareTo(o2.getBluetoothDevice().getAddress());
+            }
+        });
 
-        if (mDeviceInfoList.size()>sensor) {
+        for (int i = 0; i < shift; i++) {
+            Object item = mDeviceInfoList.get(0);
+            mDeviceInfoList.remove(item);
+            mDeviceInfoList.add((BleDeviceInfo) item);
+        }
+
+        sensorReadingLoop++;
+    }
+
+
+    private void turnOnSensorLed(int sensor) throws IOException {
+
+        if (mDeviceInfoList.size() > sensor) {
             int lcd = getSensorId(mDeviceInfoList.get(sensor).getBluetoothDevice().getAddress());
 
             switch (lcd) {
@@ -493,8 +521,13 @@ public class MainActivity extends ViewPagerActivity {
     }
 
 
-    private long getCurrentTime(){return System.currentTimeMillis();}
-    private long elapsedTime(long timeNow, long timeThen){return Math.abs(timeNow-timeThen);}
+    private long getCurrentTime() {
+        return System.currentTimeMillis();
+    }
+
+    private long elapsedTime(long timeNow, long timeThen) {
+        return Math.abs(timeNow - timeThen);
+    }
 
     public void scanSensors() throws IOException {
 
@@ -510,7 +543,7 @@ public class MainActivity extends ViewPagerActivity {
         }
     }
 
-    public void updateLcds() throws  IOException {
+    public void updateLcds() throws IOException {
 
         state.setBusy(true);
 
@@ -520,7 +553,7 @@ public class MainActivity extends ViewPagerActivity {
 
         for (int sensorId = 0; sensorId < mDeviceInfoList.size(); sensorId++) {
             String sensorAdress = mDeviceInfoList.get(sensorId).getBluetoothDevice().getAddress();
-            switch(getSensorId(sensorAdress)) {
+            switch (getSensorId(sensorAdress)) {
                 case 0:
                     lcd1.setIsEnabled(true);
                     lcd1.setBackLight(true);
@@ -540,15 +573,24 @@ public class MainActivity extends ViewPagerActivity {
             }
         }
 
-        if (!sensor1On) {lcd1.setIsEnabled(false); lcd1.setBackLight(false);}
-        if (!sensor2On) {lcd2.setIsEnabled(false); lcd2.setBackLight(false);}
-        if (!sensor3On) {lcd3.setIsEnabled(false); lcd3.setBackLight(false);}
+        if (!sensor1On) {
+            lcd1.setIsEnabled(false);
+            lcd1.setBackLight(false);
+        }
+        if (!sensor2On) {
+            lcd2.setIsEnabled(false);
+            lcd2.setBackLight(false);
+        }
+        if (!sensor3On) {
+            lcd3.setIsEnabled(false);
+            lcd3.setBackLight(false);
+        }
 
         state.setBusy(false);
 
     }
 
-    public void readSensors(int sensor) throws IOException{
+    public void readSensors(int sensor) throws IOException {
 
         state.setBusy(true);
 
@@ -557,7 +599,7 @@ public class MainActivity extends ViewPagerActivity {
 
     }
 
-    private void displayValues(){
+    private void displayValues() {
 
     }
 
@@ -568,7 +610,7 @@ public class MainActivity extends ViewPagerActivity {
 
         setBusy(true);
 
-        if (pos<mDeviceInfoList.size()) {
+        if (pos < mDeviceInfoList.size()) {
 
             mBluetoothDevice = mDeviceInfoList.get(pos).getBluetoothDevice();
 
@@ -582,9 +624,7 @@ public class MainActivity extends ViewPagerActivity {
                     mBluetoothLeService.disconnect(mBluetoothDevice.getAddress());
                 }
             }
-        }
-        else
-        {
+        } else {
             // A bluetooth termometer has been disconnected
             // We force rescan
             state = INIT;
@@ -615,7 +655,7 @@ public class MainActivity extends ViewPagerActivity {
         }
     }
 
-    public void onBtnScan(View view) throws IOException{
+    public void onBtnScan(View view) throws IOException {
         if (mScanning) {
             stopScan();
         } else {
@@ -662,7 +702,7 @@ public class MainActivity extends ViewPagerActivity {
         }
     }
 
-    private void stopScan() throws IOException{
+    private void stopScan() throws IOException {
         mScanning = false;
         mScanView.updateGui(false);
         scanLeDevice(false);
@@ -679,234 +719,242 @@ public class MainActivity extends ViewPagerActivity {
         finishActivity(REQ_DEVICE_ACT);
     }
 
-	// ////////////////////////////////////////////////////////////////////////////////////////////////
-	//
-	// GUI methods
-	//
-	public void updateGuiState() throws IOException {
-		boolean mBtEnabled = mBtAdapter.isEnabled();
+    // ////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // GUI methods
+    //
+    public void updateGuiState() throws IOException {
+        boolean mBtEnabled = mBtAdapter.isEnabled();
 
-		if (mBtEnabled) {
-			if (mScanning) {
-				// BLE Host connected
-				if (mConnIndex != NO_DEVICE) {
+        if (mBtEnabled) {
+            if (mScanning) {
+                // BLE Host connected
+                if (mConnIndex != NO_DEVICE) {
                     if (mBluetoothDevice.getAddress().equals("78:A5:04:8C:1C:42")) {
-                        lcd1.setBackLight(true);}
+                        lcd1.setBackLight(true);
+                    }
                     if (mBluetoothDevice.getAddress().equals("BC:6A:29:AE:D3:FC")) {
-                        lcd2.setBackLight(true);}
+                        lcd2.setBackLight(true);
+                    }
                     if (mBluetoothDevice.getAddress().equals("78:A5:04:8C:17:48")) {
-                        lcd3.setBackLight(true);}
+                        lcd3.setBackLight(true);
+                    }
                     if (mBluetoothDevice.getAddress().equals("B4:99:4C:64:24:A2")) {
-                        lcd3.setBackLight(true);}
-					String txt = mBluetoothDevice.getName() + " connected";
-					mScanView.setStatus(txt);
-				} else {
-					mScanView.setStatus(mNumDevs + " devices");
-				}
-			}
-		} else {
-			mDeviceInfoList.clear();
-			mScanView.notifyDataSetChanged();
-		}
-	}
+                        lcd3.setBackLight(true);
+                    }
+                    String txt = mBluetoothDevice.getName() + " connected";
+                    mScanView.setStatus(txt);
+                } else {
+                    mScanView.setStatus(mNumDevs + " devices");
+                }
+            }
+        } else {
+            mDeviceInfoList.clear();
+            mScanView.notifyDataSetChanged();
+        }
+    }
 
-	private void setBusy(boolean f) {
-		mScanView.setBusy(f);
-	}
+    private void setBusy(boolean f) {
+        mScanView.setBusy(f);
+    }
 
-	void setError(String txt) {
-		mScanView.setError(txt);
-		CustomToast.middleBottom(this, "Turning BT adapter off and on again may fix Android BLE stack problems");
-	}
+    void setError(String txt) {
+        mScanView.setError(txt);
+        CustomToast.middleBottom(this, "Turning BT adapter off and on again may fix Android BLE stack problems");
+    }
 
-	private BleDeviceInfo createDeviceInfo(BluetoothDevice device, int rssi) {
-		BleDeviceInfo deviceInfo = new BleDeviceInfo(device, rssi);
+    private BleDeviceInfo createDeviceInfo(BluetoothDevice device, int rssi) {
+        BleDeviceInfo deviceInfo = new BleDeviceInfo(device, rssi);
 
-		return deviceInfo;
-	}
+        return deviceInfo;
+    }
 
-	boolean checkDeviceFilter(String deviceName) {
-		if (deviceName == null)
-			return false;
+    boolean checkDeviceFilter(String deviceName) {
+        if (deviceName == null)
+            return false;
 
-		int n = mDeviceFilter.length;
-		if (n > 0) {
-			boolean found = false;
-			for (int i = 0; i < n && !found; i++) {
-				found = deviceName.equals(mDeviceFilter[i]);
-			}
-			return found;
-		} else
-			// Allow all devices if the device filter is empty
-			return true;
-	}
+        int n = mDeviceFilter.length;
+        if (n > 0) {
+            boolean found = false;
+            for (int i = 0; i < n && !found; i++) {
+                found = deviceName.equals(mDeviceFilter[i]);
+            }
+            return found;
+        } else
+            // Allow all devices if the device filter is empty
+            return true;
+    }
 
-	private void addDevice(BleDeviceInfo device) throws IOException {
-		mNumDevs++;
+    private void addDevice(BleDeviceInfo device) throws IOException {
+        mNumDevs++;
         if (device.getBluetoothDevice().getAddress().equals("78:A5:04:8C:1C:42")) {
-            lcd1.setBackLight(true);}
+            lcd1.setBackLight(true);
+        }
         if (device.getBluetoothDevice().getAddress().equals("BC:6A:29:AE:D3:FC")) {
-            lcd2.setBackLight(true);}
+            lcd2.setBackLight(true);
+        }
         if (device.getBluetoothDevice().getAddress().equals("78:A5:04:8C:17:48")) {
-            lcd3.setBackLight(true);}
+            lcd3.setBackLight(true);
+        }
         if (device.getBluetoothDevice().getAddress().equals("B4:99:4C:64:24:A2")) {
-            lcd3.setBackLight(true);}
+            lcd3.setBackLight(true);
+        }
 //        boolean deviceOn = false;
 //        for (int i=0; i<mDeviceScanedList.size();i++)
 //        {
 //            if (mDeviceScanedList.get(i).getBluetoothDevice().getAddress().equals(device.getBluetoothDevice().getAddress())) deviceOn=true;
 //        }
 //        if (!deviceOn)
-  		mDeviceInfoList.add(device);
-        state.setNumSensors(mDeviceInfoList.size());
-
-        if (mDeviceInfoList.size() == 3)
-            state.setBusy(false);
+        mDeviceInfoList.add(device);
+//        state.setNumSensors(mDeviceInfoList.size());
+//
+//        if (mDeviceInfoList.size() == 3)
+//            state.setBusy(false);
 
 //        mDeviceScanedList.add(device);
-		mScanView.notifyDataSetChanged();
-		if (mNumDevs > 1)
-			mScanView.setStatus(mNumDevs + " devices");
-		else
-			mScanView.setStatus("1 device");
-	}
+        mScanView.notifyDataSetChanged();
+        if (mNumDevs > 1)
+            mScanView.setStatus(mNumDevs + " devices");
+        else
+            mScanView.setStatus("1 device");
+    }
 
-	private boolean deviceInfoExists(String address) {
-		for (int i = 0; i < mDeviceInfoList.size(); i++) {
-			if (mDeviceInfoList.get(i).getBluetoothDevice().getAddress()
-			    .equals(address)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private BleDeviceInfo findDeviceInfo(BluetoothDevice device) {
-		for (int i = 0; i < mDeviceInfoList.size(); i++) {
-			if (mDeviceInfoList.get(i).getBluetoothDevice().getAddress()
-			    .equals(device.getAddress())) {
-				return mDeviceInfoList.get(i);
-			}
-		}
-		return null;
-	}
-
-	private boolean scanLeDevice(boolean enable) {
-		if (enable) {
-			mScanning = mBtAdapter.startLeScan(mLeScanCallback);
-		} else {
-			mScanning = false;
-			mBtAdapter.stopLeScan(mLeScanCallback);
-		}
-		return mScanning;
-	}
-
-	List<BleDeviceInfo> getDeviceInfoList() {
-		return mDeviceInfoList;
-	}
-
-	private void startBluetoothLeService() {
-		boolean f;
-
-		Intent bindIntent = new Intent(this, BluetoothLeService.class);
-		startService(bindIntent);
-		f = bindService(bindIntent, mServiceConnection, Context.BIND_AUTO_CREATE);
-		if (!f) {
-			CustomToast.middleBottom(this, "Bind to BluetoothLeService failed");
-			finish();
-		}
-	}
-
-	// Activity result handling
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-
-		String room;
-
-		switch (requestCode) {
-		case REQ_DEVICE_ACT:
-			// When the device activity has finished: disconnect the device
-            if (resultCode == RESULT_OK) {
-                SensorData mSensorData = data.getParcelableExtra("SensorData");
-                mNewValues = true;
-
-                try {
-                    if (mDeviceInfoList.get(state.getSensorToRead()).getBluetoothDevice().getAddress().equals("78:A5:04:8C:1C:42")) {
-                        room = "Room 1";
-                        lcd1.writeText(mSensorData.getmIrtDataRef(), room);
-                        lcd1.setBackLight(true);
-                    }
-                    if (mDeviceInfoList.get(state.getSensorToRead()).getBluetoothDevice().getAddress().equals("BC:6A:29:AE:D3:FC")) {
-                        room = "Room 2";
-                        lcd2.writeText(mSensorData.getmIrtDataRef(), room);
-                        lcd2.setBackLight(true);
-                    }
-                    if (mDeviceInfoList.get(state.getSensorToRead()).getBluetoothDevice().getAddress().equals("78:A5:04:8C:17:48")) {
-                        room = "Room 3";
-                        lcd3.writeText(mSensorData.getmIrtDataRef(), room);
-                        lcd3.setBackLight(true);
-                    }
-                    if (mDeviceInfoList.get(state.getSensorToRead()).getBluetoothDevice().getAddress().equals("B4:99:4C:64:24:A2")) {
-                        room = "Room 3";
-                        lcd3.writeText(mSensorData.getmIrtDataRef(), room);
-                        lcd3.setBackLight(true);
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+    private boolean deviceInfoExists(String address) {
+        for (int i = 0; i < mDeviceInfoList.size(); i++) {
+            if (mDeviceInfoList.get(i).getBluetoothDevice().getAddress()
+                    .equals(address)) {
+                return true;
             }
+        }
+        return false;
+    }
 
-			if (mConnIndex != NO_DEVICE) {
-				mBluetoothLeService.disconnect(mBluetoothDevice.getAddress());
-                state.setBusy(false);
-			}
+    private BleDeviceInfo findDeviceInfo(BluetoothDevice device) {
+        for (int i = 0; i < mDeviceInfoList.size(); i++) {
+            if (mDeviceInfoList.get(i).getBluetoothDevice().getAddress()
+                    .equals(device.getAddress())) {
+                return mDeviceInfoList.get(i);
+            }
+        }
+        return null;
+    }
 
-			break;
+    private boolean scanLeDevice(boolean enable) {
+        if (enable) {
+            mScanning = mBtAdapter.startLeScan(mLeScanCallback);
+        } else {
+            mScanning = false;
+            mBtAdapter.stopLeScan(mLeScanCallback);
+        }
+        return mScanning;
+    }
 
-		case REQ_ENABLE_BT:
-			// When the request to enable Bluetooth returns
-			if (resultCode == Activity.RESULT_OK) {
+    List<BleDeviceInfo> getDeviceInfoList() {
+        return mDeviceInfoList;
+    }
 
-				Toast.makeText(this, R.string.bt_on, Toast.LENGTH_SHORT).show();
-			} else {
-				// User did not enable Bluetooth or an error occurred
-				Toast.makeText(this, R.string.bt_not_on, Toast.LENGTH_SHORT).show();
-				finish();
-			}
-			break;
-		default:
-			CustomToast.middleBottom(this, "Unknown request code: " + requestCode);
+    private void startBluetoothLeService() {
+        boolean f;
 
-			// Log.e(TAG, "Unknown request code");
-			break;
-		}
-	}
+        Intent bindIntent = new Intent(this, BluetoothLeService.class);
+        startService(bindIntent);
+        f = bindService(bindIntent, mServiceConnection, Context.BIND_AUTO_CREATE);
+        if (!f) {
+            CustomToast.middleBottom(this, "Bind to BluetoothLeService failed");
+            finish();
+        }
+    }
 
-	// ////////////////////////////////////////////////////////////////////////////////////////////////
-	//
-	// Broadcasted actions from Bluetooth adapter and BluetoothLeService
-	//
-	private BroadcastReceiver mReceiver = new BroadcastReceiver() {
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			final String action = intent.getAction();
+    // Activity result handling
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-			if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(action)) {
-				// Bluetooth adapter state change
-				switch (mBtAdapter.getState()) {
-				case BluetoothAdapter.STATE_ON:
-					mConnIndex = NO_DEVICE;
-					startBluetoothLeService();
-					break;
-				case BluetoothAdapter.STATE_OFF:
-					Toast.makeText(context, R.string.app_closing, Toast.LENGTH_LONG)
-					    .show();
-					finish();
-					break;
-				default:
-					// Log.w(TAG, "Action STATE CHANGED not processed ");
-					break;
-				}
+        String room;
+
+        switch (requestCode) {
+            case REQ_DEVICE_ACT:
+                // When the device activity has finished: disconnect the device
+                if (resultCode == RESULT_OK) {
+                    SensorData mSensorData = data.getParcelableExtra("SensorData");
+                    mNewValues = true;
+
+                    try {
+                        if (mDeviceInfoList.get(state.getSensorToRead()).getBluetoothDevice().getAddress().equals("78:A5:04:8C:1C:42")) {
+                            room = "Room 1";
+                            lcd1.writeText(mSensorData.getmIrtDataRef(), room);
+                            lcd1.setBackLight(true);
+                        }
+                        if (mDeviceInfoList.get(state.getSensorToRead()).getBluetoothDevice().getAddress().equals("BC:6A:29:AE:D3:FC")) {
+                            room = "Room 2";
+                            lcd2.writeText(mSensorData.getmIrtDataRef(), room);
+                            lcd2.setBackLight(true);
+                        }
+                        if (mDeviceInfoList.get(state.getSensorToRead()).getBluetoothDevice().getAddress().equals("78:A5:04:8C:17:48")) {
+                            room = "Room 3";
+                            lcd3.writeText(mSensorData.getmIrtDataRef(), room);
+                            lcd3.setBackLight(true);
+                        }
+                        if (mDeviceInfoList.get(state.getSensorToRead()).getBluetoothDevice().getAddress().equals("B4:99:4C:64:24:A2")) {
+                            room = "Room 3";
+                            lcd3.writeText(mSensorData.getmIrtDataRef(), room);
+                            lcd3.setBackLight(true);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                if (mConnIndex != NO_DEVICE) {
+                    mBluetoothLeService.disconnect(mBluetoothDevice.getAddress());
+                    state.setBusy(false);
+                }
+
+                break;
+
+            case REQ_ENABLE_BT:
+                // When the request to enable Bluetooth returns
+                if (resultCode == Activity.RESULT_OK) {
+
+                    Toast.makeText(this, R.string.bt_on, Toast.LENGTH_SHORT).show();
+                } else {
+                    // User did not enable Bluetooth or an error occurred
+                    Toast.makeText(this, R.string.bt_not_on, Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                break;
+            default:
+                CustomToast.middleBottom(this, "Unknown request code: " + requestCode);
+
+                // Log.e(TAG, "Unknown request code");
+                break;
+        }
+    }
+
+    // ////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Broadcasted actions from Bluetooth adapter and BluetoothLeService
+    //
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+
+            if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(action)) {
+                // Bluetooth adapter state change
+                switch (mBtAdapter.getState()) {
+                    case BluetoothAdapter.STATE_ON:
+                        mConnIndex = NO_DEVICE;
+                        startBluetoothLeService();
+                        break;
+                    case BluetoothAdapter.STATE_OFF:
+                        Toast.makeText(context, R.string.app_closing, Toast.LENGTH_LONG)
+                                .show();
+                        finish();
+                        break;
+                    default:
+                        // Log.w(TAG, "Action STATE CHANGED not processed ");
+                        break;
+                }
 
                 try {
                     updateGuiState();
@@ -914,81 +962,81 @@ public class MainActivity extends ViewPagerActivity {
                     e.printStackTrace();
                 }
             } else if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
-				// GATT connect
-				int status = intent.getIntExtra(BluetoothLeService.EXTRA_STATUS,
-				    BluetoothGatt.GATT_FAILURE);
-				if (status == BluetoothGatt.GATT_SUCCESS) {
-					setBusy(false);
-					startDeviceActivity();
-				} else
-					setError("Connect failed. Status: " + status);
-			} else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
-				// GATT disconnect
-				int status = intent.getIntExtra(BluetoothLeService.EXTRA_STATUS,
-				    BluetoothGatt.GATT_FAILURE);
-				stopDeviceActivity();
-				if (status == BluetoothGatt.GATT_SUCCESS) {
-					setBusy(false);
-					mScanView.setStatus(mBluetoothDevice.getName() + " disconnected",
-					    STATUS_DURATION);
-				} else {
-					setError("Disconnect failed. Status: " + status);
-				}
-				mConnIndex = NO_DEVICE;
-				mBluetoothLeService.close();
-			} else {
-				// Log.w(TAG,"Unknown action: " + action);
-			}
+                // GATT connect
+                int status = intent.getIntExtra(BluetoothLeService.EXTRA_STATUS,
+                        BluetoothGatt.GATT_FAILURE);
+                if (status == BluetoothGatt.GATT_SUCCESS) {
+                    setBusy(false);
+                    startDeviceActivity();
+                } else
+                    setError("Connect failed. Status: " + status);
+            } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
+                // GATT disconnect
+                int status = intent.getIntExtra(BluetoothLeService.EXTRA_STATUS,
+                        BluetoothGatt.GATT_FAILURE);
+                stopDeviceActivity();
+                if (status == BluetoothGatt.GATT_SUCCESS) {
+                    setBusy(false);
+                    mScanView.setStatus(mBluetoothDevice.getName() + " disconnected",
+                            STATUS_DURATION);
+                } else {
+                    setError("Disconnect failed. Status: " + status);
+                }
+                mConnIndex = NO_DEVICE;
+                mBluetoothLeService.close();
+            } else {
+                // Log.w(TAG,"Unknown action: " + action);
+            }
 
-		}
-	};
+        }
+    };
 
-	// Code to manage Service life cycle.
-	private final ServiceConnection mServiceConnection = new ServiceConnection() {
+    // Code to manage Service life cycle.
+    private final ServiceConnection mServiceConnection = new ServiceConnection() {
 
-		public void onServiceConnected(ComponentName componentName, IBinder service) {
-			mBluetoothLeService = ((BluetoothLeService.LocalBinder) service)
-			    .getService();
-			if (!mBluetoothLeService.initialize()) {
-				Toast.makeText(mThis, "Unable to initialize BluetoothLeService", Toast.LENGTH_SHORT).show();
-				finish();
-				return;
-			}
-			final int n = mBluetoothLeService.numConnectedDevices();
-			if (n > 0) {
-				runOnUiThread(new Runnable() {
-					public void run() {
-						mThis.setError("Multiple connections!");
-					}
-				});
-			} else {
+        public void onServiceConnected(ComponentName componentName, IBinder service) {
+            mBluetoothLeService = ((BluetoothLeService.LocalBinder) service)
+                    .getService();
+            if (!mBluetoothLeService.initialize()) {
+                Toast.makeText(mThis, "Unable to initialize BluetoothLeService", Toast.LENGTH_SHORT).show();
+                finish();
+                return;
+            }
+            final int n = mBluetoothLeService.numConnectedDevices();
+            if (n > 0) {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        mThis.setError("Multiple connections!");
+                    }
+                });
+            } else {
                 try {
                     startScan();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 // Log.i(TAG, "BluetoothLeService connected");
-			}
-		}
+            }
+        }
 
-		public void onServiceDisconnected(ComponentName componentName) {
-			mBluetoothLeService = null;
-			// Log.i(TAG, "BluetoothLeService disconnected");
-		}
-	};
+        public void onServiceDisconnected(ComponentName componentName) {
+            mBluetoothLeService = null;
+            // Log.i(TAG, "BluetoothLeService disconnected");
+        }
+    };
 
-	// Device scan callback.
-	// NB! Nexus 4 and Nexus 7 (2012) only provide one scan result per scan
-	private BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
+    // Device scan callback.
+    // NB! Nexus 4 and Nexus 7 (2012) only provide one scan result per scan
+    private BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
 
-		public void onLeScan(final BluetoothDevice device, final int rssi,
-		    byte[] scanRecord) {
-			runOnUiThread(new Runnable() {
-				public void run() {
-					// Filter devices
-					if (checkDeviceFilter(device.getName())) {
-						if (!deviceInfoExists(device.getAddress())) {
-							// New device
+        public void onLeScan(final BluetoothDevice device, final int rssi,
+                             byte[] scanRecord) {
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    // Filter devices
+                    if (checkDeviceFilter(device.getName())) {
+                        if (!deviceInfoExists(device.getAddress())) {
+                            // New device
                             BleDeviceInfo deviceInfo = createDeviceInfo(device, rssi);
                             try {
                                 addDevice(deviceInfo);
@@ -996,19 +1044,19 @@ public class MainActivity extends ViewPagerActivity {
                                 e.printStackTrace();
                             }
                         } else {
-							// Already in list, update RSSI info
-							BleDeviceInfo deviceInfo = findDeviceInfo(device);
-							deviceInfo.updateRssi(rssi);
-							mScanView.notifyDataSetChanged();
-						}
-					}
-				}
+                            // Already in list, update RSSI info
+                            BleDeviceInfo deviceInfo = findDeviceInfo(device);
+                            deviceInfo.updateRssi(rssi);
+                            mScanView.notifyDataSetChanged();
+                        }
+                    }
+                }
 
-			});
-		}
-	};
+            });
+        }
+    };
 
-	private void initBusLed() {
+    private void initBusLed() {
 
         PeripheralManager pioManager = PeripheralManager.getInstance();
         Log.d(TAG, "Available GPIO: " + pioManager.getGpioList());
@@ -1029,7 +1077,7 @@ public class MainActivity extends ViewPagerActivity {
 
     }
 
-	private void initLCDs() {
+    private void initLCDs() {
         PeripheralManager pioManager = PeripheralManager.getInstance();
         Log.d(TAG, "Available GPIO: " + pioManager.getGpioList());
 
@@ -1065,7 +1113,7 @@ public class MainActivity extends ViewPagerActivity {
             lcd3 = new LCD(rs_lcd3, e_lcd3, d4_lcd3, d5_lcd3, d6_lcd3, d7_lcd3, bl_lcd3);
             lcd3.init();
 
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             Log.e(TAG, e.getMessage());
         }
     }
@@ -1081,10 +1129,10 @@ public class MainActivity extends ViewPagerActivity {
         return 0;
     }
 
-    public int getSensorSize(){
+    public int getSensorSize() {
         TypedArray sensors = getResources().obtainTypedArray(R.array.sensors);
 
-	    return sensors.length();
+        return sensors.length();
     }
 
 }

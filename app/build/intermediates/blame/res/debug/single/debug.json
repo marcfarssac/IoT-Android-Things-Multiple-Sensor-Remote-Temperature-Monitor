@@ -36,12 +36,12 @@
         "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\drawable-xhdpi\\irtemperature.png"
     },
     {
-        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\layout_dialog_about.xml.flat",
-        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\layout\\dialog_about.xml"
-    },
-    {
         "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_help.xml.flat",
         "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\layout\\fragment_help.xml"
+    },
+    {
+        "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\layout_dialog_about.xml.flat",
+        "source": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\src\\main\\res\\layout\\dialog_about.xml"
     },
     {
         "merged": "C:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ti_stk_2c_pos_rgb_png.png.flat",

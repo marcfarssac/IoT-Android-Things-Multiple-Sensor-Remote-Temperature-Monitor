@@ -1,4 +1,4 @@
-#Fri Oct 19 17:58:00 CEST 2018
+#Sun Oct 21 13:28:55 CEST 2018
 base.0=C\:\\Users\\marcf\\git\\sensortag-android2\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\1
 path.0=classes.dex
 renamed.0=classes.dex
