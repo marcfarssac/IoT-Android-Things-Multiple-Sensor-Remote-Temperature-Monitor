@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "886269292730",
+    "firebase_url": "https://rasp-pi-cloud-iot.firebaseio.com",
+    "project_id": "rasp-pi-cloud-iot",
+    "storage_bucket": "rasp-pi-cloud-iot.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:886269292730:android:e83a8422c4db2121",
+        "android_client_info": {
+          "package_name": "com.mfarssac.iotblesensors"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "886269292730-o323hpjbs055akm6de2k75kj2v7k9upq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnLsSH2LQ0hcqkNMKw4uL3V9RTsMQ1qtU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
