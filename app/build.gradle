@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion "28.0.2"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
 
     defaultConfig {
         applicationId "com.example.ti.ble.sensortag"
         minSdkVersion 27
-        targetSdkVersion 28
+        targetSdkVersion 27
     }
 
     buildTypes {
@@ -25,8 +25,9 @@ dependencies {
 
     implementation 'com.google.android.things.contrib:driver-button:1.0'
     implementation 'com.google.android.things:androidthings:1.0'
-    implementation 'com.android.support:support-annotations:28.0.0'
+    implementation 'com.android.support:support-annotations:27.0.0'
 
+//    implementation 'com.google.android.things:cloud-iot-core:1.0.0'
 
 }
 repositories {

@@ -420,17 +420,19 @@ public class MainActivity extends ViewPagerActivity {
                                 Log.d(TAG, "State: Update LCDs");
                                 if (!sensorScanState.isBusy()) {
                                     updateLcdsLeds();
-                                    updateLCD();
                                 }
                                 break;
 
                             case READ_SENSOR:
                                 sensorScanState.setNumSensors(mDeviceInfoList.size());
                                 Log.d(TAG, "State: Read Sensors");
-                                turnOnSensorLed(sensorScanState.getSensorToRead());
+                                int sensorToRead = sensorScanState.getSensorToRead();
+                                turnOnSensorLed(sensorToRead);
                                 if (!sensorScanState.isBusy()) {
                                     sensorScanState.setBusy(true);
-                                    readSensors(sensorScanState.getSensorToRead());
+                                    readSensors(sensorToRead);
+                                    updateLCD(sensorToRead);
+
                                 }
                                 break;
 
@@ -464,8 +466,8 @@ public class MainActivity extends ViewPagerActivity {
         }, STATE_TIME);
     }
 
-    private void updateLCD() {
-        String sensor = mDeviceInfoList.get(sensorScanState.getSensorToRead()).getBluetoothDevice().getAddress();
+    private void updateLCD(int sensorToRead) {
+        String sensor = mDeviceInfoList.get(sensorToRead).getBluetoothDevice().getAddress();
         String room = sensor.substring(sensor.length() - 5, sensor.length());
 
         try {
@@ -914,11 +916,10 @@ public class MainActivity extends ViewPagerActivity {
                 if (resultCode == RESULT_OK) {
                     mSensorData = data.getParcelableExtra("SensorData");
                     mNewValues = true;
-                    sensorScanState.setBusy(false);
 
                     if (mConnIndex != NO_DEVICE) {
-//                    mBluetoothLeService.disconnect(mBluetoothDevice.getAddress());
-//                    sensorScanState.setBusy(false);
+                    mBluetoothLeService.disconnect(mBluetoothDevice.getAddress());
+                    sensorScanState.setBusy(false);
                     }
                 }
                 break;
