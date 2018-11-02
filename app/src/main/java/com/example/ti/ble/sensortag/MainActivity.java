@@ -86,15 +86,21 @@ import android.widget.Toast;
 import com.example.ti.ble.common.BleDeviceInfo;
 import com.example.ti.ble.common.BluetoothLeService;
 import com.example.ti.ble.common.HelpView;
+import com.example.ti.ble.iotcore.MessagePayload;
 import com.example.ti.io.LCD;
+import com.example.ti.iotcloud.AuthKeyGenerator;
 import com.example.ti.model.SensorData;
 import com.example.ti.util.CustomToast;
 import com.example.ti.util.SensorScan;
+import com.google.android.things.iotcore.ConnectionCallback;
+import com.google.android.things.iotcore.ConnectionParams;
+import com.google.android.things.iotcore.IotCoreClient;
 import com.google.android.things.pio.Gpio;
 import com.google.android.things.pio.PeripheralManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -169,11 +175,14 @@ public class MainActivity extends ViewPagerActivity {
 
     int sensorReadingLoop;
     private SensorData mSensorData;
+    private ConnectionParams connectionParams;
+    private IotCoreClient client;
 
     public MainActivity() {
         mThis = this;
         mResourceFragmentPager = R.layout.fragment_pager;
         mResourceIdPager = R.id.pager;
+
     }
 
     @Override
@@ -181,6 +190,43 @@ public class MainActivity extends ViewPagerActivity {
         // Start the application
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
+
+        connectionParams = new ConnectionParams.Builder()
+                .setProjectId(getString(R.string.gcloud_projectId))
+                .setRegistry(getString(R.string.gcloud_registryId), getString(R.string.gcloud_registryRegion))
+                .setDeviceId(getString(R.string.gcloud_registryDeviceId))
+                .build();
+
+        AuthKeyGenerator keyGenerator = null;
+        try {
+            keyGenerator = new AuthKeyGenerator(AuthKeyGenerator.DEFAULT_KEY_ALGORITHM);
+        } catch (GeneralSecurityException | IOException e) {
+            throw new IllegalArgumentException("Cannot create a key generator", e);
+        }
+
+        // Initialize the IoT Core client
+        client = new IotCoreClient.Builder()
+                .setConnectionParams(connectionParams)
+                .setKeyPair(keyGenerator.getKeyPair())
+                .setConnectionCallback(new ConnectionCallback() {
+                    @Override
+                    public void onConnected() {
+                        Log.d(TAG, "Connected to IoT Core");
+                    }
+
+                    @Override
+                    public void onDisconnected(int i) {
+                        Log.d(TAG, "Disconnected from IoT Core");
+                    }
+                })
+//                .setOnConfigurationListener(this::onConfigurationReceived)
+                .build();
+
+// Connect to Cloud IoT Core
+        client.connect();
+
+// Start sending data!
+        client.publishDeviceState("Hello world!\n".getBytes());
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         mHandler = new Handler();
@@ -227,6 +273,28 @@ public class MainActivity extends ViewPagerActivity {
         initLCDs();
         initBusLed();
     }
+
+    private void onConfigurationReceived(byte[] bytes) {
+        if (bytes.length == 0) {
+            Log.w(TAG, "Ignoring empty device config event");
+            return;
+        }
+        MessagePayload.DeviceConfig deviceConfig = MessagePayload.parseDeviceConfigPayload(
+                new String(bytes));
+//        if (deviceConfig.version <= configurationVersion) {
+//            Log.w(TAG, "Ignoring device config message with old version. Current version: " +
+//                    configurationVersion + ", Version received: " + deviceConfig.version);
+//            return;
+//        }
+//        Log.i(TAG, "Applying device config: " + deviceConfig);
+//        configurationVersion = deviceConfig.version;
+//
+//        recurrentTasksHandler.post(() -> {
+//            reconfigure(deviceConfig);
+//        });
+    }
+
+
 
     @Override
     public void onDestroy() {
@@ -432,8 +500,12 @@ public class MainActivity extends ViewPagerActivity {
                                     sensorScanState.setBusy(true);
                                     readSensors(sensorToRead);
                                     updateLCD(sensorToRead);
-
+                                    uploadResultsToBackend(sensorToRead);
                                 }
+                                break;
+
+                            case PERSIST_RESULTS:
+
                                 break;
 
                             default:
@@ -465,6 +537,49 @@ public class MainActivity extends ViewPagerActivity {
             }
         }, STATE_TIME);
     }
+
+    private void uploadResultsToBackend(int sensor) {
+
+//        mFirebaseDatabase = FirebaseDatabase.getInstance();
+//        DatabaseReference ref = mFirebaseDatabase.getReference("sensor/" + mDeviceInfoList.get(sensor).getBluetoothDevice().getAddress());
+//        ref.setValue(mSensorData);
+//
+//        ref.setValue(mSensorData, new DatabaseReference.CompletionListener() {
+//            @Override
+//            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+//                if (databaseError != null) {
+//                    System.out.println("Data could not be saved " + databaseError.getMessage());
+//                } else {
+//                    System.out.println("Data saved successfully.");
+//                }
+//            }
+//        });
+
+//        DatabaseReference constants = mFirebaseDatabase.getReference("constants");
+//
+//        constants.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                // This method is called once with the initial value and again
+//                // whenever data at this location is updated.
+//                FirebaseConstants constants = dataSnapshot.getValue(FirebaseConstants.class);
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError error) {
+//                // Failed to read value
+//                Log.w(TAG, "Failed to read value.", error.toException());
+//                final int ERROR_CONTACTING_SERVER = 0x101;
+//                showErrorDialog(ERROR_CONTACTING_SERVER);
+//            }
+//        });
+
+
+
+
+    }
+
 
     private void updateLCD(int sensorToRead) {
         String sensor = mDeviceInfoList.get(sensorToRead).getBluetoothDevice().getAddress();

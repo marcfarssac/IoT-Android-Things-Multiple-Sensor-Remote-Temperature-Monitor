@@ -133,6 +133,21 @@ public enum SensorScan {
                 sensorToRead =0;
 
             return sensorToRead; }
+    },
+    PERSIST_RESULTS {
+        private boolean busy;
+        private long mTime;
+        public void setTime() {mTime = System.currentTimeMillis();}
+        public long getTime(){return mTime;}
+        public void init(){ busy = false;}
+        public boolean isBusy() {return busy;}
+        public void setBusy(boolean isBusy) {busy = isBusy;}
+        public SensorScan getNextState(){
+            return UPDATE_LCDS;
+        }
+        public void setRescanSensors(){}
+        public void setNumSensors(int listSize){}
+        public int getSensorToRead(){return 0;}
     };
 
     public abstract void setBusy(boolean isBusy);
