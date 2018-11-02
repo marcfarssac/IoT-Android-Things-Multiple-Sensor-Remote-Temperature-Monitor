@@ -102,8 +102,7 @@ import java.util.List;
 
 import static android.content.ContentValues.TAG;
 import static com.example.ti.util.SensorScan.INIT;
-import static com.example.ti.util.SensorScan.START;
-import static com.example.ti.util.SensorScan.UPDATE_LCDS;
+import static com.example.ti.util.SensorScan.SCAN_SENSORS;
 
 // import android.util.Log;
 
@@ -157,7 +156,7 @@ public class MainActivity extends ViewPagerActivity {
     private static final String BUS_SENSOR_LED_02 = "BCM15"; //BUS_SensorLed_02
 
     private Handler mHandler;
-    private SensorScan state = START;
+    private SensorScan sensorScanState;
 
     private Gpio rs_lcd1, bl_lcd1, e_lcd1, d4_lcd1, d5_lcd1, d6_lcd1, d7_lcd1;
     private Gpio rs_lcd2, bl_lcd2, e_lcd2, d4_lcd2, d5_lcd2, d6_lcd2, d7_lcd2;
@@ -169,6 +168,7 @@ public class MainActivity extends ViewPagerActivity {
     long stateTime;
 
     int sensorReadingLoop;
+    private SensorData mSensorData;
 
     public MainActivity() {
         mThis = this;
@@ -246,12 +246,12 @@ public class MainActivity extends ViewPagerActivity {
         // Clear cache
         File cache = getCacheDir();
         String path = cache.getPath();
-        try {
-            Runtime.getRuntime().exec(String.format("rm -rf %s", path));
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+//        try {
+//            Runtime.getRuntime().exec(String.format("rm -rf %s", path));
+//        } catch (IOException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
 
         if (BUS_SensorLed_01 != null) {
             try {
@@ -366,7 +366,7 @@ public class MainActivity extends ViewPagerActivity {
     }
 
     void onScanViewReady(View view) throws IOException {
-        // Initial state of widgets
+        // Initial sensorScanState of widgets
         updateGuiState();
 
         // License popup on first run
@@ -392,46 +392,45 @@ public class MainActivity extends ViewPagerActivity {
             mScanView.notifyDataSetChanged();
         }
 
-        state = UPDATE_LCDS;
+        sensorScanState = SCAN_SENSORS;
+        sensorScanState.setBusy(true);
+//        sensorScanState.init();
 
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
 
                 try {
-                    if (!state.isBusy()) {
-                        state = state.getNextState();
-                        switch (state) {
+                    if (!sensorScanState.isBusy()) {
+                        sensorScanState = sensorScanState.getNextState();
+                        sensorScanState.setTime();
+                        switch (sensorScanState) {
 
                             case START:
-                                stateTime = getCurrentTime();
-                                state.initSensorsReading();
                                 turnOffSensorLeds();
                                 break;
 
                             case SCAN_SENSORS:
                                 Log.d(TAG, "State: Scan Sensors");
-                                stateTime = getCurrentTime();
-                                if (!state.isBusy())
+                                if (!sensorScanState.isBusy())
                                     scanSensors();
                                 break;
 
                             case UPDATE_LCDS:
                                 Log.d(TAG, "State: Update LCDs");
-                                SensorScan.READ_SENSOR.setNumSensors(mDeviceInfoList.size());
-                                stateTime = getCurrentTime();
-                                if (!state.isBusy())
-                                    updateLcds();
+                                if (!sensorScanState.isBusy()) {
+                                    updateLcdsLeds();
+                                    updateLCD();
+                                }
                                 break;
 
                             case READ_SENSOR:
+                                sensorScanState.setNumSensors(mDeviceInfoList.size());
                                 Log.d(TAG, "State: Read Sensors");
-                                stateTime = getCurrentTime();
-                                int sensorToRead = SensorScan.READ_SENSOR.getSensorToRead();
-                                turnOnSensorLed(sensorToRead);
-                                if (!state.isBusy()) {
-                                    state.setBusy(true);
-                                    readSensors(sensorToRead);
+                                turnOnSensorLed(sensorScanState.getSensorToRead());
+                                if (!sensorScanState.isBusy()) {
+                                    sensorScanState.setBusy(true);
+                                    readSensors(sensorScanState.getSensorToRead());
                                 }
                                 break;
 
@@ -439,21 +438,21 @@ public class MainActivity extends ViewPagerActivity {
                                 break;
                         }
                     } else {
-                        if (elapsedTime(getCurrentTime(), stateTime) > MAX_SCAN_TIME) {
+                        Log.d(TAG, "Scaning sensors: " + (getCurrentTime() / 1000) % 60);
+
+                        if (elapsedTime(getCurrentTime(), sensorScanState.getTime()) > MAX_SCAN_TIME) {
                             Log.d(TAG, "State: Sensors scaned:" + mDeviceInfoList.size());
-                            if (mDeviceInfoList.size() > 0) {
-                                sortSensors();
-                                state.setBusy(false);
-                                state = UPDATE_LCDS;
-                            } else {
-                                state.setBusy(false);
-                                state = START;
+                            if (sensorScanState == SCAN_SENSORS) {
+                                if (mDeviceInfoList.size() > 0) {
+                                    sortSensors();
+                                    sensorScanState.setBusy(false);
+                                }
                             }
                         }
                         long timeout;
-                        if ((timeout = elapsedTime(getCurrentTime(), stateTime)) > MAX_STATE_TIME) {
+                        if ((timeout = elapsedTime(getCurrentTime(), sensorScanState.getTime())) > MAX_STATE_TIME) {
                             Log.d(TAG, "State: Timeout= " + (timeout / 1000) % 60);
-                            state = START; // RESET
+//                            sensorScanState = START; // RESET
                         }
                     }
 
@@ -463,6 +462,40 @@ public class MainActivity extends ViewPagerActivity {
                 mHandler.postDelayed(this, STATE_TIME);
             }
         }, STATE_TIME);
+    }
+
+    private void updateLCD() {
+        String sensor = mDeviceInfoList.get(sensorScanState.getSensorToRead()).getBluetoothDevice().getAddress();
+        String room = sensor.substring(sensor.length() - 5, sensor.length());
+
+        try {
+            switch (getSensorId(sensor)) {
+
+                case 0:
+                    room = "Room 1";
+                    if (mSensorData!=null)
+                        lcd1.writeText(mSensorData.getmIrtDataRef(), room);
+                    lcd1.setBackLight(true);
+                    break;
+
+                case 1:
+                    room = "Room 2";
+                    if (mSensorData!=null)
+                        lcd2.writeText(mSensorData.getmIrtDataRef(), room);
+                    lcd2.setBackLight(true);
+                    break;
+
+                default:
+                case 2:
+                    room = "Room 3";
+                    if (mSensorData!=null)
+                        lcd3.writeText(mSensorData.getmIrtDataRef(), room);
+                    lcd3.setBackLight(true);
+                    break;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void turnOffSensorLeds() throws IOException {
@@ -536,19 +569,19 @@ public class MainActivity extends ViewPagerActivity {
     public void scanSensors() throws IOException {
 
 
-        if ((mScanning) && (!state.isBusy()))
+        if ((mScanning) && (!sensorScanState.isBusy()))
             stopScan();
         else {
-            if (!state.isBusy()) {
-                state.setBusy(true);
+            if (!sensorScanState.isBusy()) {
+                sensorScanState.setBusy(true);
                 startScan();
             }
         }
     }
 
-    public void updateLcds() throws IOException {
+    public void updateLcdsLeds() throws IOException {
 
-        state.setBusy(true);
+        sensorScanState.setBusy(true);
 
         for (int i = 0; i < mDeviceInfoList.size(); i++) {
 
@@ -576,52 +609,13 @@ public class MainActivity extends ViewPagerActivity {
         if (!lcd2.isEnabled()) lcd2.setBackLight(false);
         if (!lcd3.isEnabled()) lcd3.setBackLight(false);
 
-//        boolean sensor1On = false;
-//        boolean sensor2On = false;
-//        boolean sensor3On = false;
-//
-//        for (int sensorId = 0; sensorId < mDeviceInfoList.size(); sensorId++) {
-//            String sensorAdress = mDeviceInfoList.get(sensorId).getBluetoothDevice().getAddress();
-//            switch (getSensorId(sensorAdress)) {
-//                case 0:
-//                    lcd1.setIsEnabled(true);
-//                    lcd1.setBackLight(true);
-//                    sensor1On = true;
-//                    break;
-//                case 1:
-//                    lcd2.setIsEnabled(true);
-//                    lcd2.setBackLight(true);
-//                    sensor2On = true;
-//                    break;
-//
-//                case 2:
-//                    lcd3.setIsEnabled(true);
-//                    lcd3.setBackLight(true);
-//                    sensor3On = true;
-//                    break;
-//            }
-//        }
-//
-//        if (!sensor1On) {
-//            lcd1.setIsEnabled(false);
-//            lcd1.setBackLight(false);
-//        }
-//        if (!sensor2On) {
-//            lcd2.setIsEnabled(false);
-//            lcd2.setBackLight(false);
-//        }
-//        if (!sensor3On) {
-//            lcd3.setIsEnabled(false);
-//            lcd3.setBackLight(false);
-//        }
-
-        state.setBusy(false);
+        sensorScanState.setBusy(false);
 
     }
 
     public void readSensors(int sensor) throws IOException {
 
-        state.setBusy(true);
+        sensorScanState.setBusy(true);
 
         if (mScanning) stopScan();
         onDeviceClick(sensor);
@@ -656,7 +650,7 @@ public class MainActivity extends ViewPagerActivity {
         } else {
             // A bluetooth termometer has been disconnected
             // We force rescan
-            state = INIT;
+            sensorScanState = INIT;
         }
     }
 
@@ -849,6 +843,7 @@ public class MainActivity extends ViewPagerActivity {
         }
 
         mDeviceInfoList.add(device);
+        sensorScanState.setNumSensors(mDeviceInfoList.size());
 
         if (!lcd1.isEnabled()) lcd1.setBackLight(false);
         if (!lcd2.isEnabled()) lcd2.setBackLight(false);
@@ -917,44 +912,15 @@ public class MainActivity extends ViewPagerActivity {
             case REQ_DEVICE_ACT:
                 // When the device activity has finished: disconnect the device
                 if (resultCode == RESULT_OK) {
-                    SensorData mSensorData = data.getParcelableExtra("SensorData");
+                    mSensorData = data.getParcelableExtra("SensorData");
                     mNewValues = true;
+                    sensorScanState.setBusy(false);
 
-                    String sensor = mDeviceInfoList.get(state.getSensorToRead()).getBluetoothDevice().getAddress();
-                    room = sensor.substring(sensor.length() - 5, sensor.length());
-
-                    try {
-                        switch (getSensorId(sensor)) {
-
-                            case 0:
-                                room = "Room 1";
-                                lcd1.writeText(mSensorData.getmIrtDataRef(), room);
-                                lcd1.setBackLight(true);
-                                break;
-
-                            case 1:
-                                room = "Room 2";
-                                lcd2.writeText(mSensorData.getmIrtDataRef(), room);
-                                lcd2.setBackLight(true);
-                                break;
-
-                            default:
-                            case 2:
-                                room = "Room 3";
-                                lcd3.writeText(mSensorData.getmIrtDataRef(), room);
-                                lcd3.setBackLight(true);
-                                break;
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    if (mConnIndex != NO_DEVICE) {
+//                    mBluetoothLeService.disconnect(mBluetoothDevice.getAddress());
+//                    sensorScanState.setBusy(false);
                     }
                 }
-
-                if (mConnIndex != NO_DEVICE) {
-                    mBluetoothLeService.disconnect(mBluetoothDevice.getAddress());
-                    state.setBusy(false);
-                }
-
                 break;
 
             case REQ_ENABLE_BT:
@@ -986,7 +952,7 @@ public class MainActivity extends ViewPagerActivity {
             final String action = intent.getAction();
 
             if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(action)) {
-                // Bluetooth adapter state change
+                // Bluetooth adapter sensorScanState change
                 switch (mBtAdapter.getState()) {
                     case BluetoothAdapter.STATE_ON:
                         mConnIndex = NO_DEVICE;
@@ -1016,7 +982,7 @@ public class MainActivity extends ViewPagerActivity {
                     startDeviceActivity();
                 } else {
                     setError("Connect failed. Status: " + status);
-                    state.setBusy(false);
+//                    sensorScanState.setBusy(false);
                 }
             } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
                 // GATT disconnect
@@ -1027,15 +993,16 @@ public class MainActivity extends ViewPagerActivity {
                     setBusy(false);
                     mScanView.setStatus(mBluetoothDevice.getName() + " disconnected",
                             STATUS_DURATION);
+                    sensorScanState.setBusy(false);
                 } else {
                     setError("Disconnect failed. Status: " + status);
-                    state.setBusy(false);
+                    sensorScanState = INIT;
                 }
                 mConnIndex = NO_DEVICE;
                 mBluetoothLeService.close();
             } else {
                 // Log.w(TAG,"Unknown action: " + action);
-                state.setBusy(false);
+                sensorScanState.setBusy(false);
                 mConnIndex = NO_DEVICE;
                 mBluetoothLeService.close();
             }
