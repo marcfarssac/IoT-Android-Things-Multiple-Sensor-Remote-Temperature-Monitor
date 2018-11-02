@@ -424,7 +424,7 @@ public class DeviceActivity extends ViewPagerActivity {
 			if (!mIsSensorTag2) {
 				// Barometer calibration
 				if (confUuid.equals(SensorTagGatt.UUID_BAR_CONF) && enable) {
-					calibrateBarometer();
+//					calibrateBarometer();
 				}
 			}
 
@@ -482,23 +482,23 @@ public class DeviceActivity extends ViewPagerActivity {
 	 * calibration values from sensor, either with notifications or a normal read.
 	 * 3. Use calibration values in formulas when interpreting sensor values.
 	 */
-	private void calibrateBarometer() {
-		if (mIsSensorTag2)
-			return;
-
-		UUID servUuid = Sensor.BAROMETER.getService();
-		UUID configUuid = Sensor.BAROMETER.getConfig();
-		BluetoothGattService serv = mBtGatt.getService(servUuid);
-		BluetoothGattCharacteristic config = serv.getCharacteristic(configUuid);
-
-		// Write the calibration code to the configuration registers
-		mBtLeService.writeCharacteristic(config, Sensor.CALIBRATE_SENSOR_CODE);
-		mBtLeService.waitIdle(GATT_TIMEOUT);
-		BluetoothGattCharacteristic calibrationCharacteristic = serv
-		    .getCharacteristic(SensorTagGatt.UUID_BAR_CALI);
-		mBtLeService.readCharacteristic(calibrationCharacteristic);
-		mBtLeService.waitIdle(GATT_TIMEOUT);
-	}
+//	private void calibrateBarometer() {
+//		if (mIsSensorTag2)
+//			return;
+//
+//		UUID servUuid = Sensor.BAROMETER.getService();
+//		UUID configUuid = Sensor.BAROMETER.getConfig();
+//		BluetoothGattService serv = mBtGatt.getService(servUuid);
+//		BluetoothGattCharacteristic config = serv.getCharacteristic(configUuid);
+//
+//		// Write the calibration code to the configuration registers
+//		mBtLeService.writeCharacteristic(config, Sensor.CALIBRATE_SENSOR_CODE);
+//		mBtLeService.waitIdle(GATT_TIMEOUT);
+//		BluetoothGattCharacteristic calibrationCharacteristic = serv
+//		    .getCharacteristic(SensorTagGatt.UUID_BAR_CALI);
+//		mBtLeService.readCharacteristic(calibrationCharacteristic);
+//		mBtLeService.waitIdle(GATT_TIMEOUT);
+//	}
 
 	private void getFirmwareRevison() {
 		UUID servUuid = SensorTagGatt.UUID_DEVINFO_SERV;
@@ -611,16 +611,16 @@ public class DeviceActivity extends ViewPagerActivity {
 				}
 			}
 
-			if (mHeightCalibrateRequest) {
-				if (uuidStr.equals(SensorTagGatt.UUID_BAR_DATA.toString())) {
-					v = Sensor.BAROMETER.convert(value);
-
-					BarometerCalibrationCoefficients.INSTANCE.heightCalibration = v.x;
-					mHeightCalibrateRequest = false;
-					Toast.makeText(this, "Height measurement calibrated",
-					    Toast.LENGTH_SHORT).show();
-				}
-			}
+//			if (mHeightCalibrateRequest) {
+//				if (uuidStr.equals(SensorTagGatt.UUID_BAR_DATA.toString())) {
+//					v = Sensor.BAROMETER.convert(value);
+//
+//					BarometerCalibrationCoefficients.INSTANCE.heightCalibration = v.x;
+//					mHeightCalibrateRequest = false;
+//					Toast.makeText(this, "Height measurement calibrated",
+//					    Toast.LENGTH_SHORT).show();
+//				}
+//			}
 
             if (uuidStr.equals(SensorTagGatt.UUID_ACC_DATA.toString())) {
                 v = Sensor.ACCELEROMETER.convert(value);
@@ -684,18 +684,18 @@ public class DeviceActivity extends ViewPagerActivity {
 //                mHumValue.setText(msg);
             }
 
-            if (uuidStr.equals(SensorTagGatt.UUID_BAR_DATA.toString())) {
-                v = Sensor.BAROMETER.convert(value);
-
-                double h = (v.x - BarometerCalibrationCoefficients.INSTANCE.heightCalibration)
-                        / PA_PER_METER;
-                h = (double) Math.round(-h * 10.0) / 10.0;
-                msg = decimal.format(v.x / 100.0f) + "\n" + h;
-                UUID_BAR_DATA = msg;
-//                if (UUID_BAR_DATA!=null)
-                	mSensorData.setmBarData(UUID_BAR_DATA);
-//                mBarValue.setText(msg);
-            }
+//            if (uuidStr.equals(SensorTagGatt.UUID_BAR_DATA.toString())) {
+//                v = Sensor.BAROMETER.convert(value);
+//
+//                double h = (v.x - BarometerCalibrationCoefficients.INSTANCE.heightCalibration)
+//                        / PA_PER_METER;
+//                h = (double) Math.round(-h * 10.0) / 10.0;
+//                msg = decimal.format(v.x / 100.0f) + "\n" + h;
+//                UUID_BAR_DATA = msg;
+////                if (UUID_BAR_DATA!=null)
+//                	mSensorData.setmBarData(UUID_BAR_DATA);
+////                mBarValue.setText(msg);
+//            }
 			mDeviceView.onCharacteristicChanged(uuidStr, value);
 		}
 

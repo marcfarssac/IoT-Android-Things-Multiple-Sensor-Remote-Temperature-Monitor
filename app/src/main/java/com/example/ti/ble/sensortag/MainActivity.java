@@ -109,6 +109,7 @@ import java.util.List;
 import static android.content.ContentValues.TAG;
 import static com.example.ti.util.SensorScan.INIT;
 import static com.example.ti.util.SensorScan.SCAN_SENSORS;
+import static com.example.ti.util.SensorScan.START;
 
 // import android.util.Log;
 
@@ -155,7 +156,7 @@ public class MainActivity extends ViewPagerActivity {
     private boolean mPollDevices = true;
     private boolean mNewValues = false;
     private final long STATE_TIME = 1000; // Loop time between states
-    private final long MAX_STATE_TIME = 10000; // Time after we consider that something went wrong
+    private final long MAX_STATE_TIME = 30000; // Time after we consider that something went wrong
     private final long MAX_SCAN_TIME = 3000; // Time after we consider that all sensors have been read
 
     private static final String BUS_SENSOR_LED_01 = "BCM14"; //BUS_SensorLed_01
@@ -526,11 +527,13 @@ public class MainActivity extends ViewPagerActivity {
                         long timeout;
                         if ((timeout = elapsedTime(getCurrentTime(), sensorScanState.getTime())) > MAX_STATE_TIME) {
                             Log.d(TAG, "State: Timeout= " + (timeout / 1000) % 60);
-//                            sensorScanState = START; // RESET
+                            sensorScanState.setBusy(false);
+                            sensorScanState = START; // RESET
                         }
                     }
 
                 } catch (IOException e) {
+
                     e.printStackTrace();
                 }
                 mHandler.postDelayed(this, STATE_TIME);

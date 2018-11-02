@@ -226,15 +226,15 @@ public class DeviceView extends Fragment {
 			mHumValue.setText(msg);
 		}
 
-		if (uuidStr.equals(SensorTagGatt.UUID_BAR_DATA.toString())) {
-			v = Sensor.BAROMETER.convert(rawValue);
-			
-			double h = (v.x - BarometerCalibrationCoefficients.INSTANCE.heightCalibration)
-			    / PA_PER_METER;
-			h = (double) Math.round(-h * 10.0) / 10.0;
-			msg = decimal.format(v.x / 100.0f) + "\n" + h;
-			mBarValue.setText(msg);
-		}
+//		if (uuidStr.equals(SensorTagGatt.UUID_BAR_DATA.toString())) {
+//			v = Sensor.BAROMETER.convert(rawValue);
+//
+//			double h = (v.x - BarometerCalibrationCoefficients.INSTANCE.heightCalibration)
+//			    / PA_PER_METER;
+//			h = (double) Math.round(-h * 10.0) / 10.0;
+//			msg = decimal.format(v.x / 100.0f) + "\n" + h;
+//			mBarValue.setText(msg);
+//		}
 
 		if (uuidStr.equals(SensorTagGatt.UUID_KEY_DATA.toString())) {
 			int keys = rawValue[0];
@@ -287,7 +287,7 @@ public class DeviceView extends Fragment {
 		showItem(ID_OBJ, mActivity.isEnabledByPrefs(Sensor.IR_TEMPERATURE));
 		showItem(ID_AMB, mActivity.isEnabledByPrefs(Sensor.IR_TEMPERATURE));
 		showItem(ID_HUM, mActivity.isEnabledByPrefs(Sensor.HUMIDITY));
-		showItem(ID_BAR, mActivity.isEnabledByPrefs(Sensor.BAROMETER));
+//		showItem(ID_BAR, mActivity.isEnabledByPrefs(Sensor.BAROMETER));
 	}
 
 	private void showItem(int id, boolean visible) {
