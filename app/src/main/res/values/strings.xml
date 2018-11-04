@@ -8,34 +8,13 @@
     <string name ="gcloud_registryId">iot-ble-temperature-sensors</string>
     <string name ="gcloud_registryRegion">europe-west1</string>
     <string name ="gcloud_registryDeviceId">device</string>
-    <string name ="gcloud_public_key">S5eUoChv6n4Xn2DDAEHDnvzhxzgxZAFN7ay95OcGoybKAon7ZrkERhrUUPGa4sjqc31k6u1IZRueMGwj++qHuud+N5pxLcv3w6n8B2LntA2c0SXtlL6LEQI0mmdaflyw0FZ1bSRMAocN8k/cEvNSd6Hto5Pz12THXYQ16yGicBokW5PCBLlqh7VY37tRL4nif2zOeb53Uf1GHnheMTbOS9ShXrpYKUnCHtY5RE9eSqlb1npOUmOu20OVtQOSLtiMV04Fj/XDHsujtgpIjZqXJax17sJaloJdD7tJZaIk10O2zjYSmRAloDPz3L+H0c7AAwIDAQAB</string>
-    <string name ="gcloud_private_key">
-MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDerDHQhF50hD5e
-BqcXB5HuGlbTevwmdG71vb6cV/I8ASZi8lGqoCCNkAO7oLzNwPQNBVi57eRXbnVZ
-nXShLwwOESxu7i1PcG+iqUOtaKIu01HFe3F4jOSwQvu3YhICPrS+NGOAh4UTRWE+
-E+Ega6oMth9qbrv2pBMg07QujsMk8axWB8LTTrb64t+VK87HMGIxE+kq7id7uAtR
-cnJRt5VPmes7F5wOpMtpUTbV1ovz7FoGWPELnbv/AZ29FruLFnWFc34UyiqqQz2k
-J4ch0D1KvJUFjR1e8xKy4ZKXv5lvi+8vpr075JmUu+39zPRv1JkLKpkWfK/Xokb0
-l/q9thKhAgMBAAECggEAATn/mD9yab/kvA3bU8Ql6KLagZW219tiVRYze5b8bZow
-BPGCw6bYJw95BcqP365FaeDyqSuHS3f/S3wTjWO99EHh9cZ4F2zuIH5AMi9WXV2q
-oKTabiiQhewIiO0QXlTMGBQfzDBy6jVCoN3pKo2NRT6nk6WCgYxL0q13253Ls2Ni
-xmOYGX30Qvov/RR4AHiDQ/TpZ5jN08pfyN6ouRgH6fHnP+erOJQgDfD4xOBn1JXB
-yhWLP48DC3MdErz8zpMld7yrnPO55xWDlLO/+iq8BQPQjQN5DDMaL7YqXS9Zd0pv
-eXdLBphlAvaslGxja3o161SrpQWszO5p7HXQ0nAftQKBgQD7SH3ZEhGEgwYlcoSf
-SV81CL8hbBo6C7cp4WNaEtHhRxc6rYqlJCkCP7/YyzgSye8XJY7TeLiLFILHXpgi
-h+kNBl/m6qfQCdXmnbjVfAEj4drmHU4SFZfmCIxazMDURE8VAR2cmARyUfWj+Hra
-OyWw0jth4QnUWc+jhNxHX1b5uwKBgQDi2jgD7pYDtqhGWw9fC/1UiVudi58mdNMW
-c0o+AWBhFLIQbEdhHJZIwrlI3/JcGI2pG2lvwu6w8XmAqwnpdKxQd+Me4Nof5wu3
-UKhcnBXhkLYGQN9EQAfuZJZnxBtiJOziwuk41IIdybv50ZN0XKg+Wo4Urcapa/E7
-/b8L1NYhUwKBgQCY6JvsI5qVUEXFM9KQO028L/5ekDHFcKucyJJ0lU8yDtiL1F6x
-7zclLzXG7qLIjCj5pNksxiFGQMz0FRPur1WZn29sTQ6hAdsv4no/Lp5i/2T88og3
-aPxt9nWyKzaL9KVK2sryJ29NQaKAjQv1EFj3KHcKMK6SkbRQhOCmbdW3UQKBgQCp
-BMepflD9MVGNIfmA6pD0NGczKb0JTQ+dcYbGTgY+LspA3DwOidsbGSItvtV3cr/R
-WGAlagqngTLy//yhmVFtnvV0ozlBfcbH7WuTnKPc7RIB9MGku0RthTpe08lHRZXN
-mkVkF0le4liQ2GpRz1t3IccsdxFGV+tjtDpsmUZ1iwKBgQDaxR75aG7G3rTV0wGY
-TYPovW32WIFFh/jNuhNQrcpEO37yr5ywazEM+sGfqDI3cVgmAhvUk37H7B8Ku4U3
-HgZ3wrPUYX8Efhdq6tXUeCFIz+3BSE/Vy0ADBeV2XdO12fQE1O+YHcu9KUyOYBVH
-GCGtnH1+j/BRYSWeSTsRpIJoSQ==</string>
+
+    <string name="project_id">rasp-pi-cloud-iot</string>
+    <string name="registry_id">test</string>
+    <string name="cloud_region">europe-west1</string>
+    <string name="device_id">testhub</string>
+    <string name="key_algorithm"></string>
+
 
     <string name="button_scan">Scan</string>
     <string name="connect">Connect</string>

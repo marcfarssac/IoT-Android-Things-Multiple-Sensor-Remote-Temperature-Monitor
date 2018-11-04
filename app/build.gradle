@@ -17,17 +17,23 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     implementation 'com.google.android:support-v4:r7'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
     implementation 'com.google.android.things.contrib:driver-button:1.0'
     implementation 'com.google.android.things:androidthings:1.0'
     implementation 'com.android.support:support-annotations:27.0.0'
-
     implementation 'com.google.android.things:cloud-iot-core:1.0.0'
+
+    implementation 'com.google.android.things.contrib:driver-bmx280:1.0'
+    implementation 'com.google.android.things.contrib:driver-button:1.0'
+
 
 }
 repositories {
