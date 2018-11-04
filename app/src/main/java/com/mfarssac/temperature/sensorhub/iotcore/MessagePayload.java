@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.example.ti.ble.iotcore;
+package com.mfarssac.temperature.sensorhub.iotcore;
 
-import com.example.ti.model.SensorData;
+import com.mfarssac.temperature.sensorhub.SensorData;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,10 +45,9 @@ public class MessagePayload {
             JSONArray dataArray = new JSONArray();
             for (SensorData el : data) {
                 JSONObject sensor = new JSONObject();
-                sensor.put("Tamb", el.getmIrtDataObj());
-                sensor.put("Tobj", el.getmIrtDataObj());
-//                sensor.put("timestamp_" + el.getSensorName(), el.getTimestamp());
-//                sensor.put(el.getSensorName(), el.getValue());
+                sensor.put("timestamp_" + el.getSensorName(),
+                    el.getTimestamp());
+                sensor.put(el.getSensorName(), el.getValue());
                 dataArray.put(sensor);
             }
             messagePayload.put("data", dataArray);

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.ti.iotcloud;
+package com.mfarssac.temperature.sensorhub;
 
 import android.os.Environment;
 import android.security.keystore.KeyGenParameterSpec;
