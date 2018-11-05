@@ -2,10 +2,9 @@
 <resources>
     <string-array name="device_filter"><item>SensorTag</item><item>SensorTag2</item></string-array>
     <array name="sensors">
-        <item>78:A5:04:8C:1C:42</item>
         <item>78:A5:04:8C:17:48</item>
+        <item>78:A5:04:8C:1C:42</item>
         <item>BC:6A:29:AE:D3:FC</item>
-        <item>B4:99:4C:64:24:A2</item>
     </array>
     <string name="about">About</string>
     <string name="acc">Accelerometer</string>
@@ -23,21 +22,28 @@
     <string name="btn_txt_confirm">Confirm</string>
     <string name="button_scan">Scan</string>
     <string name="cancel">Cancel</string>
+    <string name="cloud_region">europe-west1</string>
     <string name="connect">Connect</string>
     <string name="control">Done</string>
     <string name="cur_image">Current image:</string>
     <string name="dev_addr">Device address</string>
     <string name="device">Device</string>
+    <string name="device_id">testhub</string>
     <string name="disconnected">Device is not connected</string>
     <string name="empty1">*\n</string>
     <string name="empty3">*\n*\n*\n</string>
     <string name="exit">Exit</string>
     <string name="fwupdate">Firmware update</string>
+    <string name="gcloud_projectId">rasp-pi-cloud-iot</string>
+    <string name="gcloud_registryDeviceId">device</string>
+    <string name="gcloud_registryId">iot-ble-temperature-sensors</string>
+    <string name="gcloud_registryRegion">europe-west1</string>
     <string name="gyro">Gyroscope</string>
     <string name="header">Available BLE Devices</string>
     <string name="hum">Humidity</string>
     <string name="idle">idle</string>
     <string name="image">Image</string>
+    <string name="key_algorithm"/>
     <string name="keys">Keys</string>
     <string name="license">License</string>
     <string name="load_image_a">Image A</string>
@@ -52,6 +58,8 @@
     <string name="prefs">Preferences</string>
     <string name="prog_ogoing">NB! Not permitted to close this view during OAD transfer</string>
     <string name="progress"/>
+    <string name="project_id">rasp-pi-cloud-iot</string>
+    <string name="registry_id">test</string>
     <string name="scan_advice">The Android device is not scanning. Please tap \'Scan\' to scan for SensorTags.</string>
     <string name="start_prog">Start Programming</string>
     <string name="sthome">SensorTag Home</string>

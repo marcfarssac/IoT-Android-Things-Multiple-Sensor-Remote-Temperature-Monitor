@@ -260,26 +260,91 @@ public class LCD implements Runnable, AutoCloseable {
 
     }
 
+    public void writeTextChars(String text1, String text2) throws IOException {
+
+        this.text1 = text1;
+        this.text2 = text2;
+
+        writeTextChar(128, 134);
+        delay(1000);
+        writeTextChar(140, 146);
+        delay(1000);
+        writeTextChar(152, 158);
+        delay(1000);
+        writeTextChar(164, 170);
+        delay(1000);
+        writeTextChar(176, 182);
+        delay(1000);
+        writeTextChar(188, 192);
+        delay(1000);
+        writeTextChar(198, 204);
+        delay(1000);
+        writeTextChar(210, 216);
+        delay(1000);
+        writeTextChar(222, 228);
+        delay(1000);
+        writeTextChar(134, 240);
+        delay(1000);
+        writeTextChar(246, 248);
+        delay(1000);
+
+    }
+
+    public void writeTextChar(int start1, int start2) throws IOException {
+
+        this.text1 = text1;
+        this.text2 = text2;
+
+        String str = "";
+        for (int i = start1; i<start1+6 ; i++ ) {
+            str = str + Character.toString((char)i);
+        }
+
+        text1 = str;
+        for (int i = 0; i < text1.length(); i++) {
+            write(text1.substring(i, i + 1));
+        }
+
+        for (int i = 0; i < 40 - text1.length(); i++) {
+            write(" ");
+        }
+
+        str = "";
+        for (int i = start2; i<start2 +6 ; i++ ) {
+            str = str + Character.toString((char)i);
+        }
+
+        text2 = str;
+        for (int i = 0; i < text2.length(); i++) {
+            write(text2.substring(i, i + 1));
+        }
+
+        for (int i = 0; i < 40 - text2.length(); i++) {
+            write(" ");
+        }
+
+    }
+
     public void writeText(String text1, String text2) throws IOException {
 
-            this.text1 = text1;
-            this.text2 = text2;
+        this.text1 = text1;
+        this.text2 = text2;
 
-            for (int i = 0; i < text1.length(); i++) {
-                write(text1.substring(i, i + 1));
-            }
+        for (int i = 0; i < text1.length(); i++) {
+            write(text1.substring(i, i + 1));
+        }
 
-            for (int i = 0; i < 40 - text1.length(); i++) {
-                write(" ");
-            }
+        for (int i = 0; i < 40 - text1.length(); i++) {
+            write(" ");
+        }
 
-            for (int i = 0; i < text2.length(); i++) {
-                write(text2.substring(i, i + 1));
-            }
+        for (int i = 0; i < text2.length(); i++) {
+            write(text2.substring(i, i + 1));
+        }
 
-            for (int i = 0; i < 40 - text2.length(); i++) {
-                write(" ");
-            }
+        for (int i = 0; i < 40 - text2.length(); i++) {
+            write(" ");
+        }
 
     }
 

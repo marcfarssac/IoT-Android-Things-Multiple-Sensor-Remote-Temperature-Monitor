@@ -92,10 +92,9 @@ import com.mfarssac.temperature.ble.common.HelpView;
 import com.mfarssac.temperature.io.LCD;
 import com.mfarssac.temperature.model.SensorData;
 import com.mfarssac.temperature.sensorhub.AuthKeyGenerator;
-import com.mfarssac.temperature.sensorhub.BoardDefaults;
 import com.mfarssac.temperature.sensorhub.Parameters;
 import com.mfarssac.temperature.sensorhub.SensorHubActivity;
-import com.mfarssac.temperature.sensorhub.collector.MotionCollector;
+import com.mfarssac.temperature.sensorhub.collector.CC2541Collector;
 import com.mfarssac.temperature.sensorhub.iotcore.SensorHub;
 import com.mfarssac.temperature.util.CustomToast;
 import com.mfarssac.temperature.util.SensorScan;
@@ -107,6 +106,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 import static com.mfarssac.temperature.util.SensorScan.INIT;
 import static com.mfarssac.temperature.util.SensorScan.SCAN_SENSORS;
@@ -156,7 +156,7 @@ public class MainActivity extends ViewPagerActivity {
     // Automatic polling
     private boolean mPollDevices = true;
     private boolean mNewValues = false;
-    private final long STATE_TIME = 1000; // Loop time between states
+    private final long STATE_TIME = 1200; // Loop time between states
     private final long MAX_STATE_TIME = 20000; // Time after we consider that something went wrong
     private final long MAX_SCAN_TIME = 3000; // Time after we consider that all sensors have been read
 
@@ -185,7 +185,9 @@ public class MainActivity extends ViewPagerActivity {
     private static final String CONFIG_SHARED_PREFERENCES_KEY = "cloud_iot_config";
 
     private SensorHub sensorHub;
-
+    private CC2541Collector bleSensor1;
+    private CC2541Collector bleSensor2;
+    private CC2541Collector bleSensor3;
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -208,10 +210,13 @@ public class MainActivity extends ViewPagerActivity {
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
 
-//        prefs = PreferenceManager.getDefaultSharedPreferences(this);
-
         prefs = getSharedPreferences(CONFIG_SHARED_PREFERENCES_KEY, MODE_PRIVATE);
         Parameters params = readParameters(prefs, getIntent().getExtras());
+
+        bleSensor1 = new CC2541Collector();
+        bleSensor2 = new CC2541Collector();
+        bleSensor3 = new CC2541Collector();
+
         if (params != null) {
             params.saveToPreferences(prefs);
             initializeHub(params);
@@ -316,8 +321,11 @@ public class MainActivity extends ViewPagerActivity {
         sensorHub = new SensorHub(params);
 //        sensorHub.registerSensorCollector(new Bmx280Collector(
 //                BoardDefaults.getI2cBusForSensors()));
-        sensorHub.registerSensorCollector(new MotionCollector(
-                BoardDefaults.getGPIOForMotionDetector()));
+//        sensorHub.registerSensorCollector(new MotionCollector(
+//                BoardDefaults.getGPIOForMotionDetector()));
+        sensorHub.registerSensorCollector(bleSensor1);
+        sensorHub.registerSensorCollector(bleSensor2);
+        sensorHub.registerSensorCollector(bleSensor3);
 
         try {
             sensorHub.start();
@@ -579,44 +587,6 @@ public class MainActivity extends ViewPagerActivity {
 
     private void uploadResultsToBackend(int sensor) {
 
-//        mFirebaseDatabase = FirebaseDatabase.getInstance();
-//        DatabaseReference ref = mFirebaseDatabase.getReference("sensor/" + mDeviceInfoList.get(sensor).getBluetoothDevice().getAddress());
-//        ref.setValue(mSensorData);
-//
-//        ref.setValue(mSensorData, new DatabaseReference.CompletionListener() {
-//            @Override
-//            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-//                if (databaseError != null) {
-//                    System.out.println("Data could not be saved " + databaseError.getMessage());
-//                } else {
-//                    System.out.println("Data saved successfully.");
-//                }
-//            }
-//        });
-
-//        DatabaseReference constants = mFirebaseDatabase.getReference("constants");
-//
-//        constants.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                // This method is called once with the initial value and again
-//                // whenever data at this location is updated.
-//                FirebaseConstants constants = dataSnapshot.getValue(FirebaseConstants.class);
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError error) {
-//                // Failed to read value
-//                Log.w(TAG, "Failed to read value.", error.toException());
-//                final int ERROR_CONTACTING_SERVER = 0x101;
-//                showErrorDialog(ERROR_CONTACTING_SERVER);
-//            }
-//        });
-
-
-
-
     }
 
     private void updateLCDTime() throws IOException {
@@ -643,9 +613,11 @@ public class MainActivity extends ViewPagerActivity {
                     case 0:
                         room = "Room 1";
                         if (mSensorData != null) {
-                            char c = mSensorData.getmIrtDataRef().charAt(0);
-                            String value = mSensorData.getmIrtDataRef().replaceAll("\\u002B","").replaceAll("[\\u0000-\\u002D]", "").replaceAll("[\\u003B-\\uFFFF]","").replaceAll("\n", "") +"\u00b0";
-                            lcd1.writeText(mSensorData.getmIrtDataRef(), room);
+                            String value = mSensorData.getmIrtDataRef().replaceAll("\\u002B","").replaceAll("[\\u0000-\\u002D]", "").replaceAll("[\\u003B-\\uFFFF]","").replaceAll("\n", "") ;
+                            bleSensor1.setTempReading(Float.parseFloat(value));
+                            float temp = Float.valueOf(value);
+                            value = String.format(Locale.GERMANY,"%.1f", temp)  +"\u00df" + "C";
+                            lcd1.writeText(value, room);
                         }
                         lcd1.setBackLight(true);
                         break;
@@ -653,9 +625,11 @@ public class MainActivity extends ViewPagerActivity {
                     case 1:
                         room = "Room 2";
                         if (mSensorData != null) {
-                            char c = mSensorData.getmIrtDataRef().charAt(0);
-                            String value = mSensorData.getmIrtDataRef().replaceAll("\\u002B","").replaceAll("[\\u0000-\\u002D]", "").replaceAll("[\\u003B-\\uFFFF]","").replaceAll("\n", "") +"\u00b0";
-                            lcd2.writeText(mSensorData.getmIrtDataRef(), room);
+                            String value = mSensorData.getmIrtDataRef().replaceAll("\\u002B","").replaceAll("[\\u0000-\\u002D]", "").replaceAll("[\\u003B-\\uFFFF]","").replaceAll("\n", "") ;
+                            bleSensor2.setTempReading(Float.parseFloat(value));
+                            float temp = Float.valueOf(value);
+                            value = String.format(Locale.GERMANY,"%.1f", temp)  +"\u00df" + "C";
+                            lcd2.writeText(value, room);
                         }
                         lcd2.setBackLight(true);
                         break;
@@ -664,9 +638,11 @@ public class MainActivity extends ViewPagerActivity {
                     case 2:
                         room = "Room 3";
                         if (mSensorData != null) {
-                            char c = mSensorData.getmIrtDataRef().charAt(0);
-                            String value = mSensorData.getmIrtDataRef().replaceAll("\\u002B","").replaceAll("[\\u0000-\\u002D]", "").replaceAll("[\\u003B-\\uFFFF]","").replaceAll("\n", "") +"\u00b0";
-                            lcd3.writeText(mSensorData.getmIrtDataRef(), room);
+                            String value = mSensorData.getmIrtDataRef().replaceAll("\\u002B","").replaceAll("[\\u0000-\\u002D]", "").replaceAll("[\\u003B-\\uFFFF]","").replaceAll("\n", "") ;
+                            bleSensor3.setTempReading(Float.parseFloat(value));
+                            float temp = Float.valueOf(value);
+                            value = String.format(Locale.GERMANY,"%.1f", temp)  +"\u00df" + "C";
+                            lcd3.writeText(value, room);
                         }
                         lcd3.setBackLight(true);
                         break;

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mfarssac.iotblesensors"
+    android:versionCode="2"
+    android:versionName="1.01" >
+
+    <uses-sdk
+        android:minSdkVersion="27"
+        android:targetSdkVersion="27" />
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.things.permission.USE_PERIPHERAL_IO" />
+    <uses-permission android:name="com.google.android.things.permission.MANAGE_INPUT_DRIVERS" />
+
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
+
+    <application
+        android:allowBackup="false"
+        android:debuggable="true"
+        android:icon="@drawable/tible"
+        android:label="@string/app_name"
+        android:screenOrientation="portrait"
+        android:testOnly="true"
+        android:theme="@android:style/Theme.Holo.Light" >
+        <uses-library android:name="com.google.android.things" />
+
+        <service
+            android:name="com.mfarssac.temperature.ble.common.BluetoothLeService"
+            android:enabled="true" />
+
+        <activity
+            android:name="com.mfarssac.temperature.ble.sensortag.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- Launch activity automatically on boot, and re-launch if the app terminates. -->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN"/> -->
+            <!-- <category android:name="android.intent.category.HOME"/> -->
+            <!-- <category android:name="android.intent.category.DEFAULT"/> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity
+            android:name="com.mfarssac.temperature.ble.sensortag.DeviceActivity"
+            android:parentActivityName="com.mfarssac.temperature.ble.sensortag.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mfarssac.temperature.ble.sensortag.FwUpdateActivity"
+            android:parentActivityName="com.mfarssac.temperature.ble.sensortag.DeviceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mfarssac.temperature.ble.sensortag.FileActivity"
+            android:parentActivityName="com.mfarssac.temperature.ble.sensortag.FwUpdateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mfarssac.temperature.ble.sensortag.PreferencesActivity"
+            android:label="Preferences"
+            android:parentActivityName="com.mfarssac.temperature.ble.sensortag.DeviceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mfarssac.temperature.ble.sensortag.ViewPagerActivity"
+            android:label="Preferences"
+            android:parentActivityName="com.mfarssac.temperature.ble.sensortag.MainActivity"
+            android:screenOrientation="portrait" />
+    </application>
+
+</manifest>
