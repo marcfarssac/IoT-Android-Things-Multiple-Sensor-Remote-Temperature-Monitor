@@ -22,89 +22,34 @@ admin.initializeApp();
 
 // [END import]
 
-// [START helloWorld]
-/**
- * Cloud Function to be triggered by Pub/Sub that logs a message using the data published to the
- * topic.
- */
-// [START trigger]
-exports.helloPubSub = functions.pubsub.topic('temp-reading').onPublish((message) => {
-// [END trigger]
-  // [START readBase64]
-  // Decode the PubSub Message body.
+exports.startDbPubSub = functions.pubsub.topic('temp-reading').onPublish((message) => {
   const messageBody = message.data ? Buffer.from(message.data, 'base64').toString() : null;
-
-    let value = '';
-
-    const value = '23.45';
-    const sensorName = 'Room 1';
-    const timeStamp = '12345678'
-
-//    const value = messageBody.json.value;
-//    const sensorName = messageBody.json.sensorName;
-//    const timeStamp = messageBody.json.timestamp;
-
-  // [END readBase64]
-  // Print the message in the logs.
-  console.log(`Timestamp is ${timeStamp} | Value is ${value} | SensorName is ${sensorName}`);
-
-
- // The topic name can be optionally prefixed with "/topics/".
  var topic = 'iot-temp';
 
- // See documentation on defining a message payload.
- var message = {
-   data: {
-     timeStamp: timeStamp,
-     sensorName: sensorName,
-     value: value
-   },
-   topic: topic
- };
+ let telemetryData = null;
+  try {
+    telemetryData = message.json.data;
+  } catch (e) {
+    console.error('PubSub message was not JSON', e);
+  }
 
- // Send a message to devices subscribed to the provided topic.
- admin.messaging().send(message)
-   .then((response) => {
-     // Response is a message ID string.
-     console.log('Successfully sent message:', response);
-   })
-   .catch((error) => {
-     console.log('Error sending message:', error);
+ const deviceId = message.attributes.deviceId;
+ const deviceNumId = message.attributes.deviceNumId;
+ const deviceRegistryId = message.attributes.deviceRegistryId;
+
+ admin.database().ref('/messages').push({
+  telemetryData: telemetryData,
+  deviceId: deviceId,
+  deviceNumId: deviceNumId,
+  deviceRegistryId: deviceRegistryId,
+  }).then(() => {
+  console.log('New Message written to dB', message);
+  // Returning the sanitized message to the client.
+	})
+    .catch((error) => {
+     console.log('Error writing Text message to db:', error);
    });
 
   return null;
 });
 // [END helloWorld]
-
-/**
- * Cloud Function to be triggered by Pub/Sub that logs a message using the data published to the
- * topic as JSON.
- */
-exports.helloPubSubJson = functions.pubsub.topic('another-topic-name').onPublish((message) => {
-  // [START readJson]
-  // Get the `name` attribute of the PubSub message JSON body.
-  let name = null;
-  try {
-    name = message.json.name;
-  } catch (e) {
-    console.error('PubSub message was not JSON', e);
-  }
-  // [END readJson]
-  // Print the message in the logs.
-  console.log(`Hello ${name || 'World'}!`);
-  return null;
-});
-
-/**
- * Cloud Function to be triggered by Pub/Sub that logs a message using the data attributes
- * published to the topic.
- */
-exports.helloPubSubAttributes = functions.pubsub.topic('yet-another-topic-name').onPublish((message) => {
-  // [START readAttributes]
-  // Get the `name` attribute of the message.
-  const name = message.attributes.name;
-  // [END readAttributes]
-  // Print the message in the logs.
-  console.log(`Hello ${name || 'World'}!`);
-  return null;
-});
