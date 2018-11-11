@@ -184,7 +184,7 @@ public class MainActivity extends ViewPagerActivity {
     private SensorHub sensorHub;
     private CC2541Collector bleSensor1;
     private CC2541Collector bleSensor2;
-    private CC2541Collector bleSensor3;
+//    private CC2541Collector bleSensor3;
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -212,7 +212,7 @@ public class MainActivity extends ViewPagerActivity {
 
         bleSensor1 = new CC2541Collector();
         bleSensor2 = new CC2541Collector();
-        bleSensor3 = new CC2541Collector();
+//        bleSensor3 = new CC2541Collector();
 
         if (params != null) {
             params.saveToPreferences(prefs);
@@ -318,11 +318,8 @@ public class MainActivity extends ViewPagerActivity {
         sensorHub = new SensorHub(params);
 //        sensorHub.registerSensorCollector(new Bmx280Collector(
 //                BoardDefaults.getI2cBusForSensors()));
-//        sensorHub.registerSensorCollector(new MotionCollector(
-//                BoardDefaults.getGPIOForMotionDetector()));
         sensorHub.registerSensorCollector(bleSensor1);
         sensorHub.registerSensorCollector(bleSensor2);
-        sensorHub.registerSensorCollector(bleSensor3);
 
         try {
             sensorHub.start();
@@ -592,8 +589,8 @@ public class MainActivity extends ViewPagerActivity {
                 lcd1.writeTime();
             if (lcd2!=null)
                 lcd2.writeTime();
-            if (lcd3!=null)
-                lcd3.writeTime();
+//            if (lcd3!=null)
+//                lcd3.writeTime();
     }
 
 
@@ -634,14 +631,14 @@ public class MainActivity extends ViewPagerActivity {
                     default:
                     case 2:
                         room = "Room 3";
-                        if (mSensorData != null) {
-                            String value = mSensorData.getmIrtDataRef().replaceAll("\\u002B","").replaceAll("[\\u0000-\\u002D]", "").replaceAll("[\\u003B-\\uFFFF]","").replaceAll("\n", "") ;
-                            bleSensor3.setTempReading(Float.parseFloat(value));
-                            float temp = Float.valueOf(value);
-                            value = String.format(Locale.GERMANY,"%.1f", temp)  +"\u00df" + "C";
-                            lcd3.writeText(value, room);
-                        }
-                        lcd3.setBackLight(true);
+//                        if (mSensorData != null) {
+//                            String value = mSensorData.getmIrtDataRef().replaceAll("\\u002B","").replaceAll("[\\u0000-\\u002D]", "").replaceAll("[\\u003B-\\uFFFF]","").replaceAll("\n", "") ;
+//                            bleSensor3.setTempReading(Float.parseFloat(value));
+//                            float temp = Float.valueOf(value);
+//                            value = String.format(Locale.GERMANY,"%.1f", temp)  +"\u00df" + "C";
+//                            lcd3.writeText(value, room);
+//                        }
+//                        lcd3.setBackLight(true);
                         break;
                 }
             } catch (IOException e) {
