@@ -5,9 +5,9 @@
     <string name="app_name">BLE SensorTag</string>
 
     <string name ="gcloud_projectId">rasp-pi-cloud-iot</string>
-    <string name ="gcloud_registryId">iot-ble-temperature-sensors</string>
+    <string name ="gcloud_registryId">test</string>
     <string name ="gcloud_registryRegion">europe-west1</string>
-    <string name ="gcloud_registryDeviceId">device</string>
+    <string name ="gcloud_registryDeviceId">testhub</string>
 
     <string name="project_id">rasp-pi-cloud-iot</string>
     <string name="registry_id">test</string>

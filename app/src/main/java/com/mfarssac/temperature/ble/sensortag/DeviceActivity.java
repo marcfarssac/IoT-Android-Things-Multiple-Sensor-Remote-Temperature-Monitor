@@ -501,14 +501,17 @@ public class DeviceActivity extends ViewPagerActivity {
 //	}
 
 	private void getFirmwareRevison() {
-		UUID servUuid = SensorTagGatt.UUID_DEVINFO_SERV;
-		UUID charUuid = SensorTagGatt.UUID_DEVINFO_FWREV;
-		BluetoothGattService serv = mBtGatt.getService(servUuid);
-		BluetoothGattCharacteristic charFwrev = serv.getCharacteristic(charUuid);
 
-		// Write the calibration code to the configuration registers
-		mBtLeService.readCharacteristic(charFwrev);
-		mBtLeService.waitIdle(GATT_TIMEOUT);
+		// Removed as it crashes with the current firmware 11.11.2018
+
+//		UUID servUuid = SensorTagGatt.UUID_DEVINFO_SERV;
+//		UUID charUuid = SensorTagGatt.UUID_DEVINFO_FWREV;
+//		BluetoothGattService serv = mBtGatt.getService(servUuid);
+//		BluetoothGattCharacteristic charFwrev = serv.getCharacteristic(charUuid);
+//
+//		// Write the calibration code to the configuration registers
+//		mBtLeService.readCharacteristic(charFwrev);
+//		mBtLeService.waitIdle(GATT_TIMEOUT);
 
 	}
 

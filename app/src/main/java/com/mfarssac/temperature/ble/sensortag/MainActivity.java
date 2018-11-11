@@ -93,7 +93,6 @@ import com.mfarssac.temperature.io.LCD;
 import com.mfarssac.temperature.model.SensorData;
 import com.mfarssac.temperature.sensorhub.AuthKeyGenerator;
 import com.mfarssac.temperature.sensorhub.Parameters;
-import com.mfarssac.temperature.sensorhub.SensorHubActivity;
 import com.mfarssac.temperature.sensorhub.collector.CC2541Collector;
 import com.mfarssac.temperature.sensorhub.iotcore.SensorHub;
 import com.mfarssac.temperature.util.CustomToast;
@@ -116,7 +115,7 @@ import static com.mfarssac.temperature.util.SensorScan.START;
 
 public class MainActivity extends ViewPagerActivity {
     // Log
-    // private static final String TAG = "MainActivity";
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     // URLs
     private static final Uri URL_FORUM = Uri
@@ -179,8 +178,6 @@ public class MainActivity extends ViewPagerActivity {
     private SensorData mSensorData;
     private ConnectionParams connectionParams;
     private IotCoreClient client;
-
-    private static final String TAG = SensorHubActivity.class.getSimpleName();
 
     private static final String CONFIG_SHARED_PREFERENCES_KEY = "cloud_iot_config";
 

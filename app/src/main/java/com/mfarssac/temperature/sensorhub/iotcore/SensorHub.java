@@ -138,6 +138,18 @@ public class SensorHub {
                         ready.set(true);
                     }
 
+//                    public @interface DisconnectReason {}
+                    /** Could not determine the source of the error. */
+//                    public static final int REASON_UNKNOWN = 0;
+                    /** The parameters used to connect to Cloud IoT Core were invalid. */
+//                    public static final int REASON_NOT_AUTHORIZED = 1;
+                    /** The device lost connection to Cloud IoT Core. */
+//                    public static final int REASON_CONNECTION_LOST = 2;
+                    /** Timeout occurred while connecting to the MQTT bridge. */
+//                    public static final int REASON_CONNECTION_TIMEOUT = 3;
+                    /** The client closed the connection. */
+//                    public static final int REASON_CLIENT_CLOSED = 4;
+
                     @Override
                     public void onDisconnected(int i) {
                         Log.d(TAG, "Disconnected from IoT Core");
